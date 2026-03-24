@@ -719,118 +719,119 @@ const V={};
 // ===== FOR1: range(3) → 0,1,2 =====
 V.for1=new Viz('v-for1','for1-code','for1-output','for1-explain','for1-speed');
 V.for1.steps=[
-  function(){this.setLine(1);this.setExplain('🎯 range(3)은 [0, 1, 2] 세 개의 숫자를 만들어요!')},
-  function(){this.setLine(1);this.setVar('i',0);this.iterDot('for1-iter',0,'current');this.setExplain('첫 번째! 통 i에 공 <b>0</b>을 넣었어요 🏀')},
+  function(){this.setLine(1);this.setVar('range(3)',[0,1,2],'range');this.setExplain('🎯 <b>range(3)</b>은 숫자 0, 1, 2를 차례로 만들어주는 명령이에요! 칸막이 통을 살펴보세요 — 0번 칸부터 2번 칸까지 숫자가 들어있어요!')},
+  function(){this.setLine(1);this.setVar('i',0);this.iterDot('for1-iter',0,'current');this.setExplain('첫 번째 반복! range(3)에서 <b>0</b>을 꺼내서 통 i에 넣었어요 🏀')},
   function(){this.setLine(2);this.out('0\n');this.setExplain('📺 print(i) → <b>0</b>을 화면에 출력!')},
-  function(){this.setLine(1);this.setVar('i',1);this.iterDot('for1-iter',0,'done');this.iterDot('for1-iter',1,'current');this.setExplain('두 번째! 통 i의 공을 <b>1</b>로 바꿨어요 🔄')},
-  function(){this.setLine(2);this.out('1\n');this.setExplain('📺 print(i) → <b>1</b> 출력!')},
-  function(){this.setLine(1);this.setVar('i',2);this.iterDot('for1-iter',1,'done');this.iterDot('for1-iter',2,'current');this.setExplain('세 번째! 통 i의 공을 <b>2</b>로 바꿨어요 🔄')},
-  function(){this.setLine(2);this.out('2\n');this.setExplain('📺 print(i) → <b>2</b> 출력!')},
-  function(){this.setLine(0);this.iterDot('for1-iter',2,'done');this.setExplain('✅ 3개 모두 출력 완료! 반복이 끝났어요!')}
+  function(){this.setLine(1);this.setVar('i',1);this.iterDot('for1-iter',0,'done');this.iterDot('for1-iter',1,'current');this.setExplain('두 번째 반복! range(3)에서 다음 숫자 <b>1</b>을 꺼내 통 i에 넣었어요 🔄')},
+  function(){this.setLine(2);this.out('1\n');this.setExplain('📺 <b>print(i)</b> — 통 i에 들어있는 <b>1</b>을 화면에 출력해요!')},
+  function(){this.setLine(1);this.setVar('i',2);this.iterDot('for1-iter',1,'done');this.iterDot('for1-iter',2,'current');this.setExplain('세 번째(마지막) 반복! range(3)에서 마지막 숫자 <b>2</b>를 꺼내 통 i에 넣었어요 🔄')},
+  function(){this.setLine(2);this.out('2\n');this.setExplain('📺 <b>print(i)</b> — 통 i에 들어있는 <b>2</b>를 화면에 출력해요!')},
+  function(){this.setLine(0);this.iterDot('for1-iter',2,'done');this.setExplain('✅ range(3)의 숫자 0, 1, 2를 모두 사용했어요! for 반복문이 끝났습니다! 🎉')}
 ];
 
 // ===== FOR2: 1~4 =====
 V.for2=new Viz('v-for2','for2-code','for2-output','for2-explain','for2-speed');
 V.for2.steps=[
-  function(){this.setLine(1);this.setVar('n',4);this.setExplain('통 n에 공 <b>4</b>를 넣었어요!')},
-  function(){this.setLine(3);this.setVar('i',1);this.iterDot('for2-iter',0,'current');this.setExplain('첫 번째! 통 i에 공 <b>1</b>')},
-  function(){this.setLine(4);this.out('1\n');this.setExplain('📺 <b>1</b> 출력!')},
-  function(){this.setLine(3);this.setVar('i',2);this.iterDot('for2-iter',0,'done');this.iterDot('for2-iter',1,'current');this.setExplain('통 i의 공을 <b>2</b>로!')},
-  function(){this.setLine(4);this.out('2\n');this.setExplain('📺 <b>2</b> 출력!')},
-  function(){this.setLine(3);this.setVar('i',3);this.iterDot('for2-iter',1,'done');this.iterDot('for2-iter',2,'current');this.setExplain('통 i의 공을 <b>3</b>으로!')},
-  function(){this.setLine(4);this.out('3\n');this.setExplain('📺 <b>3</b> 출력!')},
-  function(){this.setLine(3);this.setVar('i',4);this.iterDot('for2-iter',2,'done');this.iterDot('for2-iter',3,'current');this.setExplain('마지막! 통 i의 공을 <b>4</b>로!')},
-  function(){this.setLine(4);this.out('4\n');this.setExplain('📺 <b>4</b> 출력!')},
-  function(){this.setLine(0);this.iterDot('for2-iter',3,'done');this.setExplain('✅ 1부터 4까지 모두 출력했어요!')}
+  function(){this.setLine(1);this.setVar('n',4);this.setExplain('🏀 통 <b>n</b>에 정수 <b>4</b>를 넣었어요! n은 반복 횟수를 정하는 변수예요.')},
+  function(){this.setLine(3);this.setVar('range(1, n+1)',[1,2,3,4],'range');this.setExplain('🎯 <b>range(1, n+1)</b> → n이 4이니까 range(1, 5)! 1부터 4까지의 숫자 목록을 만들어요. (5는 포함 안 해요!)')},
+  function(){this.setLine(3);this.setVar('i',1);this.iterDot('for2-iter',0,'current');this.setExplain('첫 번째 반복! range에서 <b>1</b>을 꺼내 통 i에 넣었어요 🏀')},
+  function(){this.setLine(4);this.out('1\n');this.setExplain('📺 <b>print(i)</b> — 통 i의 값 <b>1</b>을 화면에 출력!')},
+  function(){this.setLine(3);this.setVar('i',2);this.iterDot('for2-iter',0,'done');this.iterDot('for2-iter',1,'current');this.setExplain('두 번째 반복! range에서 <b>2</b>를 꺼내 통 i에 넣었어요 🔄')},
+  function(){this.setLine(4);this.out('2\n');this.setExplain('📺 <b>print(i)</b> — 통 i의 값 <b>2</b>를 화면에 출력!')},
+  function(){this.setLine(3);this.setVar('i',3);this.iterDot('for2-iter',1,'done');this.iterDot('for2-iter',2,'current');this.setExplain('세 번째 반복! range에서 <b>3</b>을 꺼내 통 i에 넣었어요 🔄')},
+  function(){this.setLine(4);this.out('3\n');this.setExplain('📺 <b>print(i)</b> — 통 i의 값 <b>3</b>을 화면에 출력!')},
+  function(){this.setLine(3);this.setVar('i',4);this.iterDot('for2-iter',2,'done');this.iterDot('for2-iter',3,'current');this.setExplain('마지막 반복! range에서 <b>4</b>를 꺼내 통 i에 넣었어요 🔄')},
+  function(){this.setLine(4);this.out('4\n');this.setExplain('📺 <b>print(i)</b> — 통 i의 값 <b>4</b>를 화면에 출력!')},
+  function(){this.setLine(0);this.iterDot('for2-iter',3,'done');this.setExplain('✅ range(1, 5)의 모든 숫자 1, 2, 3, 4를 사용했어요! for 반복문이 끝났습니다! 🎉')}
 ];
 
 // ===== FOR3: 문자열 리스트 =====
 V.for3=new Viz('v-for3','for3-code','for3-output','for3-explain','for3-speed');
 V.for3.steps=[
-  function(){this.setLine(1);this.setVar('t','[hello,python,world]');this.setExplain('문장을 공백으로 쪼개서 3개의 단어를 만들었어요!')},
-  function(){this.setLine(3);this.setVar('s','hello');this.iterDot('for3-iter',0,'current');this.setExplain('첫 번째 단어 <b>"hello"</b>를 통 s에!')},
-  function(){this.setLine(4);this.out('hello\n');this.setExplain('📺 "hello" 출력!')},
-  function(){this.setLine(3);this.setVar('s','python');this.iterDot('for3-iter',0,'done');this.iterDot('for3-iter',1,'current');this.setExplain('두 번째 단어 <b>"python"</b>으로!')},
-  function(){this.setLine(4);this.out('python\n');this.setExplain('📺 "python" 출력!')},
-  function(){this.setLine(3);this.setVar('s','world');this.iterDot('for3-iter',1,'done');this.iterDot('for3-iter',2,'current');this.setExplain('세 번째 단어 <b>"world"</b>로!')},
-  function(){this.setLine(4);this.out('world\n');this.setExplain('📺 "world" 출력!')},
-  function(){this.setLine(0);this.iterDot('for3-iter',2,'done');this.setExplain('✅ 모든 단어를 출력했어요!')}
+  function(){this.setLine(1);this.setVar('t',['hello','python','world'],'list');this.setExplain('✂️ <b>split()</b>으로 문장을 공백 기준으로 잘라서 리스트(목록)를 만들었어요! 칸막이 통에 3개의 단어가 들어있어요!')},
+  function(){this.setLine(3);this.setVar('s','hello');this.iterDot('for3-iter',0,'current');this.setExplain('첫 번째 반복! 리스트에서 <b>"hello"</b>를 꺼내 통 s에 넣었어요 📝')},
+  function(){this.setLine(4);this.out('hello\n');this.setExplain('📺 <b>print(s)</b> — 통 s의 값 <b>"hello"</b>를 화면에 출력!')},
+  function(){this.setLine(3);this.setVar('s','python');this.iterDot('for3-iter',0,'done');this.iterDot('for3-iter',1,'current');this.setExplain('두 번째 반복! 리스트에서 <b>"python"</b>을 꺼내 통 s에 넣었어요 🔄')},
+  function(){this.setLine(4);this.out('python\n');this.setExplain('📺 <b>print(s)</b> — 통 s의 값 <b>"python"</b>을 화면에 출력!')},
+  function(){this.setLine(3);this.setVar('s','world');this.iterDot('for3-iter',1,'done');this.iterDot('for3-iter',2,'current');this.setExplain('세 번째(마지막) 반복! 리스트에서 <b>"world"</b>를 꺼내 통 s에 넣었어요 🔄')},
+  function(){this.setLine(4);this.out('world\n');this.setExplain('📺 <b>print(s)</b> — 통 s의 값 <b>"world"</b>를 화면에 출력!')},
+  function(){this.setLine(0);this.iterDot('for3-iter',2,'done');this.setExplain('✅ 리스트의 모든 단어 "hello", "python", "world"를 출력했어요! for 반복문이 끝났습니다! 🎉')}
 ];
 
 // ===== WHILE1: 1~3 =====
 V.while1=new Viz('v-while1','while1-code','while1-output','while1-explain','while1-speed');
 V.while1.steps=[
-  function(){this.setLine(1);this.setVar('n',1);this.setExplain('통 n에 공 <b>1</b>을 넣었어요')},
-  function(){this.setLine(2);renderCmp('while1-cmp','n',1,'<=',3,true);this.setExplain('🤔 n(1) ≤ 3? → <b>맞아요!</b> 반복 계속!')},
-  function(){this.setLine(3);this.out('1\n');this.setExplain('📺 <b>1</b> 출력!')},
-  function(){this.setLine(4);this.setVar('n',2);this.setExplain('n+1 → 통 n의 공을 <b>2</b>로!')},
-  function(){this.setLine(2);renderCmp('while1-cmp','n',2,'<=',3,true);this.setExplain('🤔 n(2) ≤ 3? → <b>맞아요!</b>')},
-  function(){this.setLine(3);this.out('2\n');this.setExplain('📺 <b>2</b> 출력!')},
-  function(){this.setLine(4);this.setVar('n',3);this.setExplain('통 n의 공을 <b>3</b>으로!')},
-  function(){this.setLine(2);renderCmp('while1-cmp','n',3,'<=',3,true);this.setExplain('🤔 n(3) ≤ 3? → <b>맞아요!</b> 딱 같으니까!')},
-  function(){this.setLine(3);this.out('3\n');this.setExplain('📺 <b>3</b> 출력!')},
-  function(){this.setLine(4);this.setVar('n',4);this.setExplain('통 n의 공을 <b>4</b>로!')},
-  function(){this.setLine(2);renderCmp('while1-cmp','n',4,'<=',3,false);this.setExplain('🤔 n(4) ≤ 3? → <b>아니에요!</b> 4는 3보다 커요!')},
-  function(){this.setLine(0);this.setExplain('✅ 조건이 거짓! while 반복 끝!')}
+  function(){this.setLine(1);this.setVar('n',1);this.setExplain('🏀 통 <b>n</b>에 정수 <b>1</b>을 넣었어요! 이 값부터 시작해서 반복할 거예요.')},
+  function(){this.setLine(2);renderCmp('while1-cmp','n',1,'<=',3,true);this.setExplain('🔍 <b>while n <= 3</b> — 조건을 확인해요! n(=1) ≤ 3? → <b>참(True)!</b> 1은 3보다 작으니까 반복을 계속해요!')},
+  function(){this.setLine(3);this.out('1\n');this.setExplain('📺 <b>print(n)</b> — 통 n의 값 <b>1</b>을 화면에 출력해요!')},
+  function(){this.setLine(4);this.setVar('n',2);this.setExplain('➕ <b>n = n + 1</b> — 통 n의 값에 1을 더해요! 1 + 1 = <b>2</b>. 이렇게 값을 바꿔야 나중에 반복이 끝나요!')},
+  function(){this.setLine(2);renderCmp('while1-cmp','n',2,'<=',3,true);this.setExplain('🔍 다시 조건 확인! n(=2) ≤ 3? → <b>참(True)!</b> 아직 3보다 작으니까 계속!')},
+  function(){this.setLine(3);this.out('2\n');this.setExplain('📺 <b>print(n)</b> — 통 n의 값 <b>2</b>를 화면에 출력해요!')},
+  function(){this.setLine(4);this.setVar('n',3);this.setExplain('➕ <b>n = n + 1</b> — 2 + 1 = <b>3</b>. 통 n의 공을 3으로 바꿨어요!')},
+  function(){this.setLine(2);renderCmp('while1-cmp','n',3,'<=',3,true);this.setExplain('🔍 조건 확인! n(=3) ≤ 3? → <b>참(True)!</b> 3과 3이 같으니까 ≤(이하) 조건에 맞아요!')},
+  function(){this.setLine(3);this.out('3\n');this.setExplain('📺 <b>print(n)</b> — 통 n의 값 <b>3</b>을 화면에 출력해요!')},
+  function(){this.setLine(4);this.setVar('n',4);this.setExplain('➕ <b>n = n + 1</b> — 3 + 1 = <b>4</b>. 통 n의 공을 4로 바꿨어요!')},
+  function(){this.setLine(2);renderCmp('while1-cmp','n',4,'<=',3,false);this.setExplain('🔍 조건 확인! n(=4) ≤ 3? → <b>거짓(False)!</b> 4는 3보다 크니까 조건이 맞지 않아요!')},
+  function(){this.setLine(0);this.setExplain('✅ 조건이 거짓(False)이 되어 while 반복이 끝났어요! 1, 2, 3을 순서대로 출력했습니다! 🎉')}
 ];
 
 // ===== WHILE2: break =====
 V.while2=new Viz('v-while2','while2-code','while2-output','while2-explain','while2-speed');
 V.while2.steps=[
-  function(){this.setLine(1);this.setVar('arr',[5,3,8,-1]);this.setExplain('배열 [5, 3, 8, -1]을 만들었어요')},
-  function(){this.setLine(2);this.setVar('i',0);this.setExplain('통 i에 공 <b>0</b> (첫 번째 위치)')},
-  function(){this.setLine(3);renderCmp('while2-cmp','i',0,'<',4,true);this.setExplain('🤔 i(0) < 4? → <b>맞아요!</b>')},
-  function(){this.setLine(4);renderCmp('while2-cmp','arr[0]',5,'<',0,false);this.setExplain('🤔 5가 음수? → <b>아니에요!</b>')},
-  function(){this.setLine(6);this.out('5\n');this.setExplain('📺 <b>5</b> 출력!')},
-  function(){this.setLine(7);this.setVar('i',1);this.setExplain('다음 칸으로! i = 1')},
-  function(){this.setLine(3);renderCmp('while2-cmp','i',1,'<',4,true);this.setExplain('🤔 i(1) < 4? → <b>맞아요!</b>')},
-  function(){this.setLine(4);renderCmp('while2-cmp','arr[1]',3,'<',0,false);this.setExplain('🤔 3이 음수? → <b>아니에요!</b>')},
-  function(){this.setLine(6);this.out('3\n');this.setExplain('📺 <b>3</b> 출력!')},
-  function(){this.setLine(7);this.setVar('i',2);this.setExplain('다음 칸! i = 2')},
-  function(){this.setLine(3);renderCmp('while2-cmp','i',2,'<',4,true);this.setExplain('🤔 i(2) < 4? → <b>맞아요!</b>')},
-  function(){this.setLine(4);renderCmp('while2-cmp','arr[2]',8,'<',0,false);this.setExplain('🤔 8이 음수? → <b>아니에요!</b>')},
-  function(){this.setLine(6);this.out('8\n');this.setExplain('📺 <b>8</b> 출력!')},
-  function(){this.setLine(7);this.setVar('i',3);this.setExplain('다음 칸! i = 3')},
-  function(){this.setLine(3);renderCmp('while2-cmp','i',3,'<',4,true);this.setExplain('🤔 i(3) < 4? → <b>맞아요!</b>')},
-  function(){this.setLine(4);renderCmp('while2-cmp','arr[3]',-1,'<',0,true);this.setExplain('🚨 -1이 음수? → <b>맞아요! 음수 발견!</b>')},
-  function(){this.setLine(5);this.setExplain('🛑 <b>break!</b> 반복을 즉시 멈춰요!')},
-  function(){this.setLine(0);this.setExplain('✅ 음수를 만나 break! 출력: 5, 3, 8')}
+  function(){this.setLine(1);this.setVar('arr',[5,3,8,-1],'list');this.setExplain('📋 리스트(목록) <b>[5, 3, 8, -1]</b>을 만들어 통 arr에 넣었어요! 칸막이 통에 4개의 숫자가 들어있어요.')},
+  function(){this.setLine(2);this.setVar('i',0);this.setExplain('🏀 통 <b>i</b>에 정수 <b>0</b>을 넣었어요! i는 리스트의 몇 번째 칸을 볼지 알려주는 인덱스(위치)예요.')},
+  function(){this.setLine(3);renderCmp('while2-cmp','i',0,'<',4,true);this.setExplain('🔍 <b>while i < len(arr)</b> — i(=0) < 4? → <b>참(True)!</b> 아직 볼 칸이 남았어요!')},
+  function(){this.setLine(4);renderCmp('while2-cmp','arr[0]',5,'<',0,false);this.setExplain('🔍 <b>arr[0] = 5</b> — 5가 0보다 작아요(음수)? → <b>아니에요!</b> 양수니까 break하지 않아요.')},
+  function(){this.setLine(6);this.out('5\n');this.setExplain('📺 <b>print(arr[0])</b> — 리스트 0번 칸의 값 <b>5</b>를 화면에 출력!')},
+  function(){this.setLine(7);this.setVar('i',1);this.setExplain('➕ <b>i += 1</b> — 다음 칸으로 이동! 통 i를 <b>1</b>로 바꿨어요.')},
+  function(){this.setLine(3);renderCmp('while2-cmp','i',1,'<',4,true);this.setExplain('🔍 다시 조건 확인! i(=1) < 4? → <b>참(True)!</b> 계속 진행!')},
+  function(){this.setLine(4);renderCmp('while2-cmp','arr[1]',3,'<',0,false);this.setExplain('🔍 <b>arr[1] = 3</b> — 3이 음수? → <b>아니에요!</b> 양수라서 계속!')},
+  function(){this.setLine(6);this.out('3\n');this.setExplain('📺 <b>print(arr[1])</b> — 리스트 1번 칸의 값 <b>3</b>을 화면에 출력!')},
+  function(){this.setLine(7);this.setVar('i',2);this.setExplain('➕ <b>i += 1</b> — 다음 칸으로! 통 i를 <b>2</b>로.')},
+  function(){this.setLine(3);renderCmp('while2-cmp','i',2,'<',4,true);this.setExplain('🔍 조건 확인! i(=2) < 4? → <b>참(True)!</b>')},
+  function(){this.setLine(4);renderCmp('while2-cmp','arr[2]',8,'<',0,false);this.setExplain('🔍 <b>arr[2] = 8</b> — 8이 음수? → <b>아니에요!</b>')},
+  function(){this.setLine(6);this.out('8\n');this.setExplain('📺 <b>print(arr[2])</b> — 리스트 2번 칸의 값 <b>8</b>을 화면에 출력!')},
+  function(){this.setLine(7);this.setVar('i',3);this.setExplain('➕ <b>i += 1</b> — 다음 칸으로! 통 i를 <b>3</b>으로.')},
+  function(){this.setLine(3);renderCmp('while2-cmp','i',3,'<',4,true);this.setExplain('🔍 조건 확인! i(=3) < 4? → <b>참(True)!</b>')},
+  function(){this.setLine(4);renderCmp('while2-cmp','arr[3]',-1,'<',0,true);this.setExplain('🚨 <b>arr[3] = -1</b> — -1이 음수? → <b>참(True)! 음수를 발견했어요!</b>')},
+  function(){this.setLine(5);this.setExplain('🛑 <b>break!</b> — 음수를 만났으니 반복문을 강제로 멈춰요! 더 이상 반복하지 않고 빠져나갑니다.')},
+  function(){this.setLine(0);this.setExplain('✅ break로 반복이 끝났어요! 음수(-1) 전까지의 값 5, 3, 8만 출력되었습니다! 🎉')}
 ];
 
 // ===== WHILE3: continue (3의 배수 건너뛰기) =====
 V.while3=new Viz('v-while3','while3-code','while3-output','while3-explain','while3-speed');
 V.while3.steps=[
-  function(){this.setLine(1);this.setVar('i',1);this.setExplain('통 i에 공 <b>1</b>')},
-  function(){this.setLine(2);renderCmp('while3-cmp','i',1,'<=',7,true);this.setExplain('🤔 i(1) ≤ 7? → <b>맞아요!</b>')},
-  function(){this.setLine(3);renderCmp('while3-cmp','1%3',1,'==',0,false);this.setExplain('1÷3 나머지=1, 3의 배수 아니에요!')},
-  function(){this.setLine(6);this.out('1\n');this.setExplain('📺 <b>1</b> 출력!')},
-  function(){this.setLine(7);this.setVar('i',2);this.setExplain('i를 1 늘려서 2로!')},
-  function(){this.setLine(2);renderCmp('while3-cmp','i',2,'<=',7,true);this.setExplain('🤔 i(2) ≤ 7? → <b>맞아요!</b>')},
-  function(){this.setLine(3);renderCmp('while3-cmp','2%3',2,'==',0,false);this.setExplain('2÷3 나머지=2, 3의 배수 아니에요!')},
-  function(){this.setLine(6);this.out('2\n');this.setExplain('📺 <b>2</b> 출력!')},
-  function(){this.setLine(7);this.setVar('i',3);this.setExplain('i를 1 늘려서 3으로!')},
-  function(){this.setLine(2);renderCmp('while3-cmp','i',3,'<=',7,true);this.setExplain('🤔 i(3) ≤ 7? → <b>맞아요!</b>')},
-  function(){this.setLine(3);renderCmp('while3-cmp','3%3',0,'==',0,true);this.setExplain('⚠️ 3÷3 나머지=0! <b>3의 배수!</b>')},
-  function(){this.setLine(4);this.setVar('i',4);this.setExplain('i를 4로 늘리고...')},
-  function(){this.setLine(5);this.setExplain('🚫 <b>continue!</b> 출력 건너뛰고 다음으로!')},
-  function(){this.setLine(2);renderCmp('while3-cmp','i',4,'<=',7,true);this.setExplain('🤔 i(4) ≤ 7? → <b>맞아요!</b>')},
-  function(){this.setLine(3);renderCmp('while3-cmp','4%3',1,'==',0,false);this.setExplain('4÷3 나머지=1, 3의 배수 아니에요!')},
-  function(){this.setLine(6);this.out('4\n');this.setExplain('📺 <b>4</b> 출력!')},
-  function(){this.setLine(7);this.setVar('i',5);this.setExplain('i = 5')},
-  function(){this.setLine(2);renderCmp('while3-cmp','i',5,'<=',7,true);this.setExplain('🤔 i(5) ≤ 7? → <b>맞아요!</b>')},
-  function(){this.setLine(3);renderCmp('while3-cmp','5%3',2,'==',0,false);this.setExplain('5÷3 나머지=2, 3의 배수 아니에요!')},
-  function(){this.setLine(6);this.out('5\n');this.setExplain('📺 <b>5</b> 출력!')},
-  function(){this.setLine(7);this.setVar('i',6);this.setExplain('i = 6')},
-  function(){this.setLine(2);renderCmp('while3-cmp','i',6,'<=',7,true);this.setExplain('🤔 i(6) ≤ 7? → <b>맞아요!</b>')},
-  function(){this.setLine(3);renderCmp('while3-cmp','6%3',0,'==',0,true);this.setExplain('⚠️ 6÷3 나머지=0! <b>3의 배수!</b>')},
-  function(){this.setLine(4);this.setVar('i',7);this.setExplain('i를 7로 늘리고...')},
-  function(){this.setLine(5);this.setExplain('🚫 <b>continue!</b> 건너뛰기!')},
-  function(){this.setLine(2);renderCmp('while3-cmp','i',7,'<=',7,true);this.setExplain('🤔 i(7) ≤ 7? → <b>맞아요!</b>')},
-  function(){this.setLine(3);renderCmp('while3-cmp','7%3',1,'==',0,false);this.setExplain('7÷3 나머지=1, 3의 배수 아니에요!')},
-  function(){this.setLine(6);this.out('7\n');this.setExplain('📺 <b>7</b> 출력!')},
-  function(){this.setLine(7);this.setVar('i',8);this.setExplain('i = 8')},
-  function(){this.setLine(2);renderCmp('while3-cmp','i',8,'<=',7,false);this.setExplain('🤔 i(8) ≤ 7? → <b>아니에요!</b> 8은 7보다 커요!')},
-  function(){this.setLine(0);this.setExplain('✅ 끝! 3의 배수(3,6) 건너뛰고 1,2,4,5,7 출력!')}
+  function(){this.setLine(1);this.setVar('i',1);this.setExplain('🏀 통 <b>i</b>에 정수 <b>1</b>을 넣었어요! 1부터 7까지 확인하면서 3의 배수는 건너뛸 거예요.')},
+  function(){this.setLine(2);renderCmp('while3-cmp','i',1,'<=',7,true);this.setExplain('🔍 <b>while i <= 7</b> — i(=1) ≤ 7? → <b>참(True)!</b> 반복을 계속해요!')},
+  function(){this.setLine(3);renderCmp('while3-cmp','1%3',1,'==',0,false);this.setExplain('🔍 <b>i % 3 == 0</b> — 1÷3의 나머지=1, 0이 아니에요! → 3의 배수가 <b>아니므로</b> continue하지 않아요.')},
+  function(){this.setLine(6);this.out('1\n');this.setExplain('📺 <b>print(i)</b> — 통 i의 값 <b>1</b>을 화면에 출력! (3의 배수가 아니니까 출력해요)')},
+  function(){this.setLine(7);this.setVar('i',2);this.setExplain('➕ <b>i += 1</b> — 1 + 1 = <b>2</b>. 다음 숫자로 넘어가요!')},
+  function(){this.setLine(2);renderCmp('while3-cmp','i',2,'<=',7,true);this.setExplain('🔍 조건 확인! i(=2) ≤ 7? → <b>참(True)!</b>')},
+  function(){this.setLine(3);renderCmp('while3-cmp','2%3',2,'==',0,false);this.setExplain('🔍 2÷3의 나머지=2, 0이 아니에요! → 3의 배수가 <b>아닙니다.</b>')},
+  function(){this.setLine(6);this.out('2\n');this.setExplain('📺 <b>print(i)</b> — <b>2</b>를 화면에 출력!')},
+  function(){this.setLine(7);this.setVar('i',3);this.setExplain('➕ <b>i += 1</b> — 2 + 1 = <b>3</b>. 다음 숫자로!')},
+  function(){this.setLine(2);renderCmp('while3-cmp','i',3,'<=',7,true);this.setExplain('🔍 조건 확인! i(=3) ≤ 7? → <b>참(True)!</b>')},
+  function(){this.setLine(3);renderCmp('while3-cmp','3%3',0,'==',0,true);this.setExplain('⚠️ 3÷3의 나머지=0! <b>3의 배수를 발견!</b> continue로 건너뛸 준비!')},
+  function(){this.setLine(4);this.setVar('i',4);this.setExplain('➕ <b>i += 1</b> — 3 + 1 = <b>4</b>. 먼저 i를 증가시키고...')},
+  function(){this.setLine(5);this.setExplain('⏭️ <b>continue!</b> — print를 건너뛰고 바로 while 조건 확인으로 돌아가요! 3은 출력되지 않아요!')},
+  function(){this.setLine(2);renderCmp('while3-cmp','i',4,'<=',7,true);this.setExplain('🔍 조건 확인! i(=4) ≤ 7? → <b>참(True)!</b>')},
+  function(){this.setLine(3);renderCmp('while3-cmp','4%3',1,'==',0,false);this.setExplain('🔍 4÷3의 나머지=1 → 3의 배수가 <b>아니에요.</b>')},
+  function(){this.setLine(6);this.out('4\n');this.setExplain('📺 <b>print(i)</b> — <b>4</b>를 화면에 출력!')},
+  function(){this.setLine(7);this.setVar('i',5);this.setExplain('➕ <b>i += 1</b> — 4 + 1 = <b>5</b>')},
+  function(){this.setLine(2);renderCmp('while3-cmp','i',5,'<=',7,true);this.setExplain('🔍 조건 확인! i(=5) ≤ 7? → <b>참(True)!</b>')},
+  function(){this.setLine(3);renderCmp('while3-cmp','5%3',2,'==',0,false);this.setExplain('🔍 5÷3의 나머지=2 → 3의 배수가 <b>아니에요.</b>')},
+  function(){this.setLine(6);this.out('5\n');this.setExplain('📺 <b>print(i)</b> — <b>5</b>를 화면에 출력!')},
+  function(){this.setLine(7);this.setVar('i',6);this.setExplain('➕ <b>i += 1</b> — 5 + 1 = <b>6</b>')},
+  function(){this.setLine(2);renderCmp('while3-cmp','i',6,'<=',7,true);this.setExplain('🔍 조건 확인! i(=6) ≤ 7? → <b>참(True)!</b>')},
+  function(){this.setLine(3);renderCmp('while3-cmp','6%3',0,'==',0,true);this.setExplain('⚠️ 6÷3의 나머지=0! <b>3의 배수를 또 발견!</b> continue로 건너뛸 거예요!')},
+  function(){this.setLine(4);this.setVar('i',7);this.setExplain('➕ <b>i += 1</b> — 6 + 1 = <b>7</b>. 먼저 i를 증가시키고...')},
+  function(){this.setLine(5);this.setExplain('⏭️ <b>continue!</b> — print를 건너뛰어요! 6은 출력되지 않아요!')},
+  function(){this.setLine(2);renderCmp('while3-cmp','i',7,'<=',7,true);this.setExplain('🔍 조건 확인! i(=7) ≤ 7? → <b>참(True)!</b> 7과 7이 같으니까요!')},
+  function(){this.setLine(3);renderCmp('while3-cmp','7%3',1,'==',0,false);this.setExplain('🔍 7÷3의 나머지=1 → 3의 배수가 <b>아니에요.</b>')},
+  function(){this.setLine(6);this.out('7\n');this.setExplain('📺 <b>print(i)</b> — <b>7</b>을 화면에 출력!')},
+  function(){this.setLine(7);this.setVar('i',8);this.setExplain('➕ <b>i += 1</b> — 7 + 1 = <b>8</b>')},
+  function(){this.setLine(2);renderCmp('while3-cmp','i',8,'<=',7,false);this.setExplain('🔍 조건 확인! i(=8) ≤ 7? → <b>거짓(False)!</b> 8은 7보다 크니까 반복이 끝나요!')},
+  function(){this.setLine(0);this.setExplain('✅ while 반복 끝! 3의 배수(3, 6)는 continue로 건너뛰고, 1, 2, 4, 5, 7만 출력했어요! 🎉')}
 ];
 
 // ===== NESTED1: 별찍기 삼각형 (* / ** / *** / ****) =====
@@ -849,16 +850,17 @@ V.nested1=new Viz('v-nested1','nested1-code','nested1-output','nested1-explain',
     }
     patEl.innerHTML=html;
   }
+  steps.push(function(){this.setLine(1);this.setVar('range(1, 5)',[1,2,3,4],'range');this.setExplain('🎯 <b>range(1, 5)</b>는 1부터 4까지의 숫자를 만들어요! 바깥쪽 for문이 4번 반복할 거예요.')});
   for(var i=1;i<=4;i++){
     (function(ii){
-      steps.push(function(){this.setLine(1);this.setVar('i',ii);this.setExplain(ii+'번째 줄! 별 '+ii+'개를 찍을 거예요 ⭐');curRow=''});
+      steps.push(function(){this.setLine(1);this.setVar('i',ii);this.setExplain('바깥쪽 반복 '+ii+'번째! 통 i에 <b>'+ii+'</b>을 넣었어요. 이번 줄에는 별 '+ii+'개를 찍을 거예요 ⭐');curRow=''});
       for(var j=0;j<ii;j++){
         (function(jj,ii2){
-          steps.push(function(){this.setLine(2);this.setVar('j',jj);this.setExplain('안쪽: j = '+jj)});
-          steps.push(function(){this.setLine(3);this.out('*');curRow+='*';updatePattern(rows,curRow);this.setExplain('⭐ 별 1개! ('+ii2+'줄 '+(jj+1)+'번째)')});
+          steps.push(function(){this.setLine(2);this.setVar('j',jj);this.setExplain('안쪽 반복! <b>range('+ii2+')</b>에서 j에 <b>'+jj+'</b>을 넣었어요. ('+ii2+'개 중 '+(jj+1)+'번째)')});
+          steps.push(function(){this.setLine(3);this.out('*');curRow+='*';updatePattern(rows,curRow);this.setExplain('📺 <b>print("*")</b> — 별 ⭐을 1개 출력! ('+ii2+'번째 줄의 '+(jj+1)+'번째 별)')});
         })(j,ii);
       }
-      steps.push(function(){this.setLine(4);this.out('\n');rows.push('*'.repeat(ii));curRow='';updatePattern(rows,'');this.setExplain(ii+'번째 줄 완성! "'+('*'.repeat(ii))+'"')});
+      steps.push(function(){this.setLine(4);this.out('\n');rows.push('*'.repeat(ii));curRow='';updatePattern(rows,'');this.setExplain('📺 <b>print()</b> — 줄바꿈! '+ii+'번째 줄 완성: "'+('*'.repeat(ii))+'" (별 '+ii+'개)')});
     })(i);
   }
   steps.push(function(){this.setLine(0);this.setExplain('✅ 별 삼각형 완성!')});
@@ -872,16 +874,17 @@ V.nested2=new Viz('v-nested2','nested2-code','nested2-output','nested2-explain',
   if(grid){grid.style.display='grid';grid.style.gridTemplateColumns='repeat(4,1fr)';grid.style.gap='4px';
     for(var k=0;k<12;k++){var c=document.createElement('div');c.className='grid-cell';grid.appendChild(c)}}
   var steps=[];
+  steps.push(function(){this.setLine(1);this.setVar('range(3)',[0,1,2],'range');this.setExplain('🎯 바깥쪽 <b>range(3)</b>은 0, 1, 2 — 3개의 줄(행)을 만들어요!')});
   for(var i=0;i<3;i++){
     (function(ii){
-      steps.push(function(){this.setLine(1);this.setVar('i',ii);this.setExplain((ii+1)+'번째 줄!')});
+      steps.push(function(){this.setLine(1);this.setVar('i',ii);this.setExplain('바깥쪽 반복! 통 i에 <b>'+ii+'</b> → '+(ii+1)+'번째 줄을 만들 거예요!')});
       for(var j=0;j<4;j++){
         (function(jj,ii2){
           var val=ii2*4+jj+1, idx=ii2*4+jj;
           steps.push(function(){
             this.setLine(2);this.setVar('j',jj);
             this.setLine(3);this.out(val+' ');
-            this.setExplain(ii2+'×4+'+jj+'+1 = <b>'+val+'</b>');
+            this.setExplain('안쪽 반복! j='+jj+' → i×4+j+1 = '+ii2+'×4+'+jj+'+1 = <b>'+val+'</b> 출력!');
             var cells=document.querySelectorAll('#nested2-grid .grid-cell');
             cells.forEach(function(c){c.classList.remove('current-cell')});
             if(cells[idx]){cells[idx].textContent=val;cells[idx].classList.add('filled','current-cell')}
@@ -899,18 +902,19 @@ V.nested2=new Viz('v-nested2','nested2-code','nested2-output','nested2-explain',
 // ===== REAL1: 합계 1~5 = 15 =====
 V.real1=new Viz('v-real1','real1-code','real1-output','real1-explain','real1-speed');
 V.real1.steps=[
-  function(){this.setLine(1);this.setVar('total',0);this.setExplain('통 total에 공 <b>0</b>! 여기에 숫자를 더할 거예요');var c=document.getElementById('real1-calc');if(c)c.textContent='total = 0'},
-  function(){this.setLine(2);this.setVar('i',1);this.setExplain('i = 1부터 시작!')},
-  function(){this.setLine(3);this.setVar('total',1);this.setExplain('0 + 1 = <b>1</b>');var c=document.getElementById('real1-calc');if(c)c.textContent='0 + 1 = 1'},
-  function(){this.setLine(2);this.setVar('i',2);this.setExplain('i = 2')},
-  function(){this.setLine(3);this.setVar('total',3);this.setExplain('1 + 2 = <b>3</b>');var c=document.getElementById('real1-calc');if(c)c.textContent='1 + 2 = 3'},
-  function(){this.setLine(2);this.setVar('i',3);this.setExplain('i = 3')},
-  function(){this.setLine(3);this.setVar('total',6);this.setExplain('3 + 3 = <b>6</b>');var c=document.getElementById('real1-calc');if(c)c.textContent='3 + 3 = 6'},
-  function(){this.setLine(2);this.setVar('i',4);this.setExplain('i = 4')},
-  function(){this.setLine(3);this.setVar('total',10);this.setExplain('6 + 4 = <b>10</b>');var c=document.getElementById('real1-calc');if(c)c.textContent='6 + 4 = 10'},
-  function(){this.setLine(2);this.setVar('i',5);this.setExplain('마지막! i = 5')},
-  function(){this.setLine(3);this.setVar('total',15);this.setExplain('10 + 5 = <b>15</b>!');var c=document.getElementById('real1-calc');if(c)c.textContent='10 + 5 = 15'},
-  function(){this.setLine(4);this.out('15\n');this.setExplain('📺 정답: <b>15</b>! 1+2+3+4+5 = 15!')},
+  function(){this.setLine(1);this.setVar('total',0);this.setExplain('🏀 통 <b>total</b>에 정수 <b>0</b>을 넣었어요! 여기에 숫자를 하나씩 더해 합계를 구할 거예요.');var c=document.getElementById('real1-calc');if(c)c.textContent='total = 0'},
+  function(){this.setLine(2);this.setVar('range(1, 6)',[1,2,3,4,5],'range');this.setExplain('🎯 <b>range(1, 6)</b>은 1부터 5까지의 숫자 목록을 만들어요! (6은 포함 안 함!) 칸막이 통을 확인해보세요.')},
+  function(){this.setLine(2);this.setVar('i',1);this.setExplain('첫 번째 반복! range에서 <b>1</b>을 꺼내 통 i에 넣었어요.')},
+  function(){this.setLine(3);this.setVar('total',1);this.setExplain('➕ <b>total += i</b> → total(0) + i(1) = <b>1</b>! 통 total의 값이 1로 바뀌었어요.');var c=document.getElementById('real1-calc');if(c)c.textContent='0 + 1 = 1'},
+  function(){this.setLine(2);this.setVar('i',2);this.setExplain('두 번째 반복! range에서 <b>2</b>를 꺼내 통 i에 넣었어요.')},
+  function(){this.setLine(3);this.setVar('total',3);this.setExplain('➕ <b>total += i</b> → total(1) + i(2) = <b>3</b>!');var c=document.getElementById('real1-calc');if(c)c.textContent='1 + 2 = 3'},
+  function(){this.setLine(2);this.setVar('i',3);this.setExplain('세 번째 반복! range에서 <b>3</b>을 꺼내 통 i에 넣었어요.')},
+  function(){this.setLine(3);this.setVar('total',6);this.setExplain('➕ <b>total += i</b> → total(3) + i(3) = <b>6</b>!');var c=document.getElementById('real1-calc');if(c)c.textContent='3 + 3 = 6'},
+  function(){this.setLine(2);this.setVar('i',4);this.setExplain('네 번째 반복! range에서 <b>4</b>를 꺼내 통 i에 넣었어요.')},
+  function(){this.setLine(3);this.setVar('total',10);this.setExplain('➕ <b>total += i</b> → total(6) + i(4) = <b>10</b>!');var c=document.getElementById('real1-calc');if(c)c.textContent='6 + 4 = 10'},
+  function(){this.setLine(2);this.setVar('i',5);this.setExplain('마지막 반복! range에서 <b>5</b>를 꺼내 통 i에 넣었어요.')},
+  function(){this.setLine(3);this.setVar('total',15);this.setExplain('➕ <b>total += i</b> → total(10) + i(5) = <b>15</b>! 1+2+3+4+5의 합이 완성!');var c=document.getElementById('real1-calc');if(c)c.textContent='10 + 5 = 15'},
+  function(){this.setLine(4);this.out('15\n');this.setExplain('📺 <b>print(total)</b> — 합계 <b>15</b>를 화면에 출력! 1+2+3+4+5 = 15 🎉')},
 ];
 
 // ===== REAL2: 소수 판별 (7 → True) =====
