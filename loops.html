@@ -154,6 +154,30 @@ body{font-family:'Noto Sans KR','Pretendard',-apple-system,sans-serif;background
 @keyframes ballGlow{0%,100%{box-shadow:3px 3px 0 var(--black)}50%{box-shadow:3px 3px 0 var(--black),0 0 20px rgba(234,179,8,0.6)}}
 .var-ball.glow{animation:ballGlow 0.6s ease 2}
 
+/* ===== ARRAY BIN (칸막이 통) ===== */
+.var-bin.arr-bin{flex-basis:100%;max-width:100%}
+.var-bin.arr-bin .var-bin-body{width:auto;height:auto;min-height:0;border-radius:6px 6px 14px 14px;padding:0;overflow:hidden;display:flex;flex-direction:column;gap:0}
+.arr-cells{display:flex;flex-wrap:wrap;min-height:52px;align-items:stretch}
+.arr-cell{display:flex;flex-direction:column;align-items:center;justify-content:flex-end;min-width:48px;flex:0 0 auto;border-right:2px dashed rgba(0,0,0,0.18);position:relative;padding:4px 2px 6px}
+.arr-cell:last-child{border-right:none}
+.arr-idx{font-family:'Courier New',monospace;font-size:0.55rem;font-weight:800;color:#999;position:absolute;top:2px;left:50%;transform:translateX(-50%);user-select:none}
+.arr-val{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Courier New',monospace;font-size:0.72rem;font-weight:900;color:#fff;border:2px solid var(--black);box-shadow:2px 2px 0 var(--black);position:relative;margin-top:10px}
+.arr-val::before{content:'';position:absolute;top:4px;left:8px;width:8px;height:6px;border-radius:50%;background:rgba(255,255,255,0.45);transform:rotate(-20deg)}
+.arr-val.str-v{background:var(--cyan);color:var(--black);border-radius:14px;width:auto;min-width:36px;padding:0 6px;font-size:0.6rem}
+.arr-val.num-v0{background:var(--pink)}
+.arr-val.num-v1{background:var(--blue)}
+.arr-val.num-v2{background:#16A34A}
+.arr-val.num-v3{background:var(--yellow);color:var(--black)}
+.arr-val.num-v4{background:var(--violet)}
+.arr-val.num-v5{background:var(--pink)}
+.arr-val.num-v6{background:var(--cyan);color:var(--black)}
+.arr-val.num-v7{background:var(--orange)}
+.arr-val.none-v{background:#ccc;color:#666}
+.arr-val.bool-v{background:var(--yellow);color:var(--black);font-size:0.65rem}
+.arr-val.bool-true-v{background:#16A34A}
+.arr-val.bool-false-v{background:var(--pink)}
+.arr-type-tag{font-size:0.6rem;font-weight:800;color:#999;padding:2px 8px;text-align:center}
+
 /* ===== COMPARISON VISUAL ===== */
 .compare-visual{display:flex;align-items:center;justify-content:center;gap:1rem;padding:1.5rem;min-height:160px;background:var(--white);border-radius:12px;border:3px dashed var(--black);position:relative;flex-wrap:wrap}
 .compare-bin{display:flex;flex-direction:column;align-items:center;gap:6px}
@@ -236,6 +260,12 @@ body{font-family:'Noto Sans KR','Pretendard',-apple-system,sans-serif;background
   .var-bin-body{width:72px;height:85px}
   .var-ball{width:48px;height:48px;font-size:0.85rem}
   .btn{padding:0.5rem 0.9rem;font-size:0.82rem}
+  /* Array bin responsive */
+  .arr-cell{min-width:40px;padding:3px 1px 5px}
+  .arr-val{width:30px;height:30px;font-size:0.65rem;margin-top:8px}
+  .arr-val.str-v{font-size:0.52rem;min-width:30px;padding:0 4px}
+  .arr-idx{font-size:0.5rem}
+  .arr-type-tag{font-size:0.55rem;padding:1px 6px}
 }
 
 /* Mobile small */
@@ -276,6 +306,14 @@ body{font-family:'Noto Sans KR','Pretendard',-apple-system,sans-serif;background
   .top-nav .logo{font-size:0.82rem;margin-right:0.5rem}
   .top-nav a{font-size:0.7rem;padding:0.25rem 0.4rem}
   .footer{padding:1.5rem 1rem;font-size:0.82rem}
+  /* Array bin responsive - mobile small */
+  .arr-cells{min-height:42px}
+  .arr-cell{min-width:34px;padding:2px 1px 4px}
+  .arr-val{width:26px;height:26px;font-size:0.58rem;border-width:1.5px;box-shadow:1px 1px 0 var(--black);margin-top:7px}
+  .arr-val.str-v{font-size:0.48rem;min-width:26px;padding:0 3px;border-radius:10px}
+  .arr-idx{font-size:0.45rem;top:1px}
+  .arr-type-tag{font-size:0.5rem;padding:1px 4px}
+  .var-bin.arr-bin .var-bin-body{border-radius:4px 4px 10px 10px}
 }
 </style>
 </head>
@@ -604,24 +642,42 @@ class Viz{
   }
   speed(){return this.speedEl?+this.speedEl.value:800}
   setExplain(t){if(this.explainEl)this.explainEl.innerHTML=`<span class="mascot">🐍</span><span>${t}</span>`}
-  setVar(name,val){
+  setVar(name,val,typeHint){
     this.vars[name]=val;
     const container=document.querySelector(`#${this.cardId} .var-containers`);if(!container)return;
+    const isArr=Array.isArray(val);
     let bin=container.querySelector(`.var-bin[data-name="${name}"]`);
+    const colors=['color-blue','color-green','color-purple','color-cyan'];
+    if(bin){const wasArr=bin.classList.contains('arr-bin');if(wasArr!==isArr){bin.remove();bin=null;}}
     if(!bin){
-      const colors=['color-blue','color-green','color-purple','color-cyan'];
       const ci=container.querySelectorAll('.var-bin').length%colors.length;
-      bin=document.createElement('div');bin.className=`var-bin ${colors[ci]}`;bin.setAttribute('data-name',name);
-      bin.innerHTML=`<div class="var-bin-label">${name}</div><div class="var-bin-body"></div>`;
+      bin=document.createElement('div');bin.className='var-bin '+colors[ci]+(isArr?' arr-bin':'');bin.setAttribute('data-name',name);
+      bin.innerHTML='<div class="var-bin-label">'+name+'</div><div class="var-bin-body"></div>';
       container.appendChild(bin);
     }
     const body=bin.querySelector('.var-bin-body');
-    const isArr=Array.isArray(val);const isStr=typeof val==='string';
-    let cls='var-ball dropping';
-    if(isStr)cls+=' str-ball';else if(isArr)cls+=' list-ball';else cls+=' num-'+(Math.abs(val)%8);
-    let display=isArr?'['+val.join(',')+']':String(val);
-    body.innerHTML=`<div class="${cls}">${display}</div>`;
-    bin.classList.add('wobble-active');setTimeout(()=>bin.classList.remove('wobble-active'),600);
+    if(isArr){
+      const max=20;const items=val.slice(0,max);
+      let h='<div class="arr-cells">';
+      items.forEach(function(v,i){
+        let vc,disp;
+        if(v===null||v===undefined){vc='arr-val none-v dropping';disp='None'}
+        else if(typeof v==='boolean'){vc='arr-val bool-v '+(v?'bool-true-v':'bool-false-v')+' dropping';disp=v?'T':'F'}
+        else if(typeof v==='string'){vc='arr-val str-v dropping';disp=v.length>6?v.substring(0,5)+'…':v}
+        else{vc='arr-val num-v'+(Math.abs(Math.round(Number(v)))%8)+' dropping';disp=String(v)}
+        h+='<div class="arr-cell"><span class="arr-idx">'+i+'</span><div class="'+vc+'">'+disp+'</div></div>';
+      });
+      if(val.length>max)h+='<div class="arr-cell"><span class="arr-idx">'+max+'</span><div class="arr-val none-v">…</div></div>';
+      h+='</div>';
+      h+='<div class="arr-type-tag">'+(typeHint||'list')+' · len='+val.length+'</div>';
+      body.innerHTML=h;
+    }else{
+      const isStr=typeof val==='string';
+      let cls='var-ball dropping';
+      if(isStr)cls+=' str-ball';else cls+=' num-'+(Math.abs(val)%8);
+      body.innerHTML='<div class="'+cls+'">'+String(val)+'</div>';
+    }
+    bin.classList.add('wobble-active');setTimeout(function(){bin.classList.remove('wobble-active')},600);
     playSound(400,0.08);
   }
   out(text){this.outBuf+=String(text);if(this.outputEl)this.outputEl.textContent=this.outBuf}
