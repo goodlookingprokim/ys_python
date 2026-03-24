@@ -1,0 +1,883 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Python 반복구조 시각화 학습</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Noto Sans KR','Pretendard',-apple-system,sans-serif;background:#F5F0EB;color:#1a1a1a;line-height:1.7;overflow-x:hidden;word-break:keep-all;overflow-wrap:break-word}
+
+/* ===== NEO BRUTALISM FOUNDATIONS ===== */
+:root{
+  --black:#1a1a1a;--white:#FAFAF5;
+  --blue:#3B82F6;--pink:#EC4899;--lime:#84CC16;--yellow:#EAB308;
+  --orange:#F97316;--violet:#8B5CF6;--cyan:#06B6D4;--red:#EF4444;
+  --shadow:4px 4px 0 var(--black);--shadow-lg:6px 6px 0 var(--black);
+  --shadow-sm:3px 3px 0 var(--black);
+  --border:3px solid var(--black);--border-thick:4px solid var(--black);
+}
+
+/* ===== HERO ===== */
+.hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;background:#F5F0EB;position:relative;overflow:hidden;text-align:center;padding:2rem}
+.hero::before{content:'';position:absolute;top:0;right:0;width:40%;height:100%;background:var(--yellow);clip-path:polygon(20% 0,100% 0,100% 100%,0 100%);z-index:0;opacity:0.5}
+.hero::after{content:'';position:absolute;bottom:0;left:0;width:35%;height:40%;background:var(--blue);clip-path:polygon(0 30%,100% 0,100% 100%,0 100%);z-index:0;opacity:0.4}
+.hero h1{font-size:clamp(2.5rem,8vw,4.5rem);font-weight:900;color:var(--black);margin-bottom:0.5rem;position:relative;z-index:1;letter-spacing:-0.02em}
+.hero h1 span{background:var(--yellow);padding:0 0.3em;display:inline-block;transform:rotate(-1deg);border:var(--border);box-shadow:var(--shadow)}
+.hero .mascot-hero,.hero-mascot{font-size:4.5rem;position:relative;z-index:1;margin-bottom:0.5rem;filter:drop-shadow(3px 3px 0 var(--black))}
+.hero .subtitle{font-size:clamp(1.1rem,2.5vw,1.4rem);color:#555;margin-bottom:2.5rem;position:relative;z-index:1;font-weight:700}
+.hero-nav{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1.2rem;max-width:1000px;width:100%;position:relative;z-index:1}
+.hero-card{background:var(--white);border:var(--border-thick);border-radius:12px;padding:1.5rem;text-decoration:none;color:var(--black);transition:all 0.15s;cursor:pointer;box-shadow:var(--shadow-lg);position:relative;overflow:hidden}
+.hero-card:hover{transform:translate(-2px,-2px);box-shadow:8px 8px 0 var(--black)}
+.hero-card:active{transform:translate(2px,2px);box-shadow:2px 2px 0 var(--black)}
+.hero-card.card-for{border-color:var(--blue)}.hero-card.card-for::before{content:'';position:absolute;top:0;right:0;width:60px;height:60px;background:var(--blue);opacity:0.15}
+.hero-card.card-while{border-color:var(--cyan)}.hero-card.card-while::before{content:'';position:absolute;top:0;right:0;width:60px;height:60px;background:var(--cyan);opacity:0.15}
+.hero-card.card-nested{border-color:var(--orange)}.hero-card.card-nested::before{content:'';position:absolute;top:0;right:0;width:60px;height:60px;background:var(--orange);opacity:0.15}
+.hero-card.card-real{border-color:var(--lime)}.hero-card.card-real::before{content:'';position:absolute;top:0;right:0;width:60px;height:60px;background:var(--lime);opacity:0.15}
+.hero-card:hover.card-for{border-color:var(--blue);box-shadow:8px 8px 0 var(--blue)}
+.hero-card:hover.card-while{border-color:var(--cyan);box-shadow:8px 8px 0 var(--cyan)}
+.hero-card:hover.card-nested{border-color:var(--orange);box-shadow:8px 8px 0 var(--orange)}
+.hero-card:hover.card-real{border-color:var(--lime);box-shadow:8px 8px 0 var(--lime)}
+.hero-card .card-icon{font-size:2.5rem;margin-bottom:0.3rem}
+.hero-card h3{font-size:1.15rem;font-weight:900;margin-bottom:0.2rem}
+.hero-card p{font-size:0.9rem;color:#666;font-weight:600}
+
+@keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+
+/* ===== NAV ===== */
+.top-nav{position:fixed;top:0;left:0;right:0;background:var(--white);border-bottom:var(--border-thick);z-index:1000;display:flex;align-items:center;padding:0 2rem;height:64px;transform:translateY(-100%);transition:transform 0.3s}
+.top-nav.visible{transform:translateY(0)}
+.top-nav .logo{font-weight:900;color:var(--black);margin-right:2rem;font-size:1.1rem;white-space:nowrap}
+.top-nav a{color:#555;text-decoration:none;padding:0.5rem 1rem;font-size:0.9rem;border-radius:8px;transition:all 0.15s;white-space:nowrap;font-weight:800;border:2px solid transparent}
+.top-nav a:hover{color:var(--black);background:var(--yellow);border-color:var(--black);box-shadow:var(--shadow-sm)}
+
+/* ===== SECTION ===== */
+.section{max-width:1200px;margin:0 auto;padding:4rem 2rem}
+.section-header{text-align:center;margin-bottom:3rem}
+.section-header .badge{display:inline-block;padding:0.4rem 1.2rem;border-radius:0;font-size:0.85rem;font-weight:900;margin-bottom:1rem;text-transform:uppercase;letter-spacing:0.1em;border:var(--border);box-shadow:var(--shadow-sm)}
+.badge-for{background:var(--blue);color:#fff}
+.badge-while{background:var(--cyan);color:#fff}
+.badge-nested{background:var(--orange);color:#fff}
+.badge-real{background:var(--lime);color:var(--black)}
+.section-header h2{font-size:clamp(1.8rem,4vw,2.6rem);font-weight:900;margin-bottom:0.5rem;color:var(--black);letter-spacing:-0.02em}
+.section-header p{color:#666;font-size:1.05rem;font-weight:700}
+
+/* ===== VIZ CARD ===== */
+.viz-card{background:var(--white);border:var(--border-thick);border-radius:12px;padding:2rem;margin-bottom:2.5rem;box-shadow:var(--shadow-lg);position:relative}
+.viz-card h3{font-size:1.2rem;font-weight:900;margin-bottom:0.8rem;color:var(--black)}
+.viz-card .desc{color:#555;font-size:0.95rem;margin-bottom:1.5rem;padding-left:1rem;border-left:5px solid var(--yellow);font-weight:600;background:rgba(234,179,8,0.08);padding:0.8rem 1rem;border-radius:0 8px 8px 0;word-break:keep-all;overflow-wrap:break-word}
+.viz-layout{display:grid;grid-template-columns:1fr 1fr;gap:2rem;align-items:start}
+@media(max-width:900px){.viz-layout{grid-template-columns:1fr}}
+
+/* ===== CODE PANEL ===== */
+.code-panel{background:var(--white);border-radius:12px;overflow:hidden;border:var(--border-thick);box-shadow:var(--shadow)}
+.panel-header{display:flex;align-items:center;padding:0.8rem 1.2rem;background:var(--black);border-bottom:none;font-size:0.9rem;color:var(--white);gap:0.8rem;font-weight:800}
+.dots{display:flex;gap:6px}
+.dot{width:14px;height:14px;border-radius:50%;border:2px solid rgba(255,255,255,0.3)}
+.dot-red{background:var(--red)}.dot-yellow{background:var(--yellow)}.dot-green{background:var(--lime)}
+.code-lines{padding:1.2rem;font-family:'Courier New','Fira Code',monospace;font-size:1rem;line-height:2;overflow-x:auto;color:var(--black);background:#FAFAF5}
+.code-line{display:flex;align-items:center;padding:4px 10px;border-radius:6px;transition:all 0.2s;position:relative;min-height:34px;margin:2px 0;border:2px solid transparent}
+.code-line code{white-space:pre;font-family:inherit;font-size:inherit;flex:1;background:none;padding:0;color:inherit}
+.code-line .line-num{width:30px;text-align:right;color:#aaa;margin-right:14px;font-size:0.9rem;flex-shrink:0;user-select:none;font-weight:800}
+.code-line.active{background:var(--yellow);border-color:var(--black);box-shadow:var(--shadow-sm);font-weight:700}
+.code-line.active .line-num{color:var(--black)}
+.code-line.active::before{content:'→';position:absolute;left:-2px;font-size:1.1rem;color:var(--red);font-weight:900;animation:arrowBounce 0.6s ease infinite}
+.code-line.executed{background:rgba(132,204,22,0.12);border-color:rgba(132,204,22,0.3)}
+.kw{color:var(--violet);font-weight:900}.fn{color:var(--blue);font-weight:800}.str{color:var(--cyan);font-weight:700}
+.num{color:var(--orange);font-weight:900}.op{color:var(--red);font-weight:800}.cm{color:#aaa;font-style:italic}.var{color:var(--black);font-weight:800}
+
+@keyframes arrowBounce{0%,100%{transform:translateX(0)}50%{transform:translateX(4px)}}
+
+/* ===== CONTROLS ===== */
+.controls{display:flex;align-items:center;gap:0.8rem;flex-wrap:wrap;margin-top:1.2rem}
+.btn{display:inline-flex;align-items:center;gap:0.5rem;padding:0.7rem 1.3rem;border-radius:8px;border:var(--border);background:var(--white);color:var(--black);font-size:0.95rem;cursor:pointer;transition:all 0.1s;font-family:inherit;font-weight:800;box-shadow:var(--shadow);text-transform:uppercase;letter-spacing:0.03em}
+.btn:hover{transform:translate(-1px,-1px);box-shadow:5px 5px 0 var(--black)}
+.btn:active{transform:translate(2px,2px);box-shadow:1px 1px 0 var(--black)}
+.btn-play{background:var(--lime);color:var(--black)}
+.btn-play:hover{box-shadow:5px 5px 0 #166534}
+.btn-step{background:var(--blue);color:#fff}
+.btn-step:hover{box-shadow:5px 5px 0 #1e3a5f}
+.btn-reset{background:var(--yellow);color:var(--black)}
+.btn-reset:hover{box-shadow:5px 5px 0 #92400e}
+.speed-control{display:flex;align-items:center;gap:0.6rem;margin-left:auto;font-size:0.85rem;color:#666;font-weight:800}
+.speed-control input[type="range"]{width:90px;height:8px;accent-color:var(--black);cursor:pointer}
+
+/* ===== EXPLAIN BUBBLE ===== */
+.explain-bubble{background:var(--white);border:var(--border);border-radius:12px;padding:1rem 1.2rem;font-size:1rem;color:var(--black);margin-top:1rem;min-height:56px;display:flex;align-items:center;gap:0.8rem;font-weight:700;box-shadow:var(--shadow-sm);position:relative;word-break:keep-all;overflow-wrap:break-word}
+.explain-bubble .mascot{font-size:1.8rem;filter:drop-shadow(2px 2px 0 var(--black))}
+
+/* ===== CONCEPT BOX ===== */
+.concept-box{background:var(--yellow);border:var(--border-thick);border-radius:12px;padding:1.5rem 2rem;margin-bottom:2rem;box-shadow:var(--shadow)}
+.concept-box h4{color:var(--black);font-size:1.1rem;margin-bottom:0.8rem;font-weight:900}
+.concept-box p{font-size:1rem;color:var(--black);font-weight:600}
+.concept-box code{background:var(--white);padding:3px 10px;border-radius:4px;font-family:'Courier New',monospace;font-size:0.95rem;color:var(--black);font-weight:800;border:2px solid var(--black)}
+
+/* ===== VARIABLE CONTAINERS (통) — NEO BRUTALISM ===== */
+.state-panel{display:flex;flex-direction:column;gap:1.2rem}
+.var-containers{display:flex;flex-wrap:wrap;gap:1.5rem;justify-content:center;padding:1.5rem;min-height:180px;background:var(--white);border-radius:12px;border:3px dashed var(--black);position:relative}
+.var-bin{display:flex;flex-direction:column;align-items:center;gap:8px;transition:all 0.3s;animation:wobble 0.4s ease;animation-play-state:paused}
+.var-bin.wobble-active{animation-play-state:running}
+.var-bin-label{font-family:'Courier New',monospace;font-size:0.9rem;font-weight:900;color:#fff;padding:0.3rem 0.8rem;border:var(--border);box-shadow:2px 2px 0 var(--black)}
+.var-bin-body{width:100px;height:120px;position:relative;background:var(--white);border:var(--border-thick);border-top:4px dashed var(--black);border-radius:4px 4px 16px 16px;display:flex;align-items:center;justify-content:center;overflow:visible;transition:all 0.3s;box-shadow:var(--shadow)}
+.var-bin::after{content:'';display:block;width:70px;height:6px;background:var(--black);border-radius:50%;opacity:0.15;margin-top:-2px}
+.var-bin.color-blue .var-bin-label{background:var(--blue)}
+.var-bin.color-blue .var-bin-body{background:#EFF6FF;border-color:var(--blue);box-shadow:4px 4px 0 var(--blue)}
+.var-bin.color-green .var-bin-label{background:#16A34A}
+.var-bin.color-green .var-bin-body{background:#F0FDF4;border-color:#16A34A;box-shadow:4px 4px 0 #16A34A}
+.var-bin.color-purple .var-bin-label{background:var(--violet)}
+.var-bin.color-purple .var-bin-body{background:#FAF5FF;border-color:var(--violet);box-shadow:4px 4px 0 var(--violet)}
+.var-bin.color-cyan .var-bin-label{background:var(--cyan)}
+.var-bin.color-cyan .var-bin-body{background:#ECFEFF;border-color:var(--cyan);box-shadow:4px 4px 0 var(--cyan)}
+
+@keyframes wobble{0%{transform:rotate(0)}25%{transform:rotate(-2deg)}75%{transform:rotate(2deg)}100%{transform:rotate(0)}}
+
+/* ===== BALL (공) — NEO BRUTALISM ===== */
+.var-ball{width:65px;height:65px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Courier New',monospace;font-size:1.1rem;font-weight:900;color:#fff;border:3px solid var(--black);box-shadow:3px 3px 0 var(--black);position:relative;z-index:2;transition:all 0.2s}
+.var-ball::before{content:'';position:absolute;top:8px;left:14px;width:16px;height:12px;border-radius:50%;background:rgba(255,255,255,0.5);transform:rotate(-20deg)}
+.var-ball.num-0{background:var(--pink)}
+.var-ball.num-1{background:var(--blue)}
+.var-ball.num-2{background:#16A34A}
+.var-ball.num-3{background:var(--yellow);color:var(--black)}
+.var-ball.num-4{background:var(--violet)}
+.var-ball.num-5{background:var(--pink)}
+.var-ball.num-6{background:var(--cyan);color:var(--black)}
+.var-ball.num-7{background:var(--orange)}
+.var-ball.str-ball{background:var(--cyan);color:var(--black);font-size:0.65rem;width:auto;min-width:65px;padding:0 12px;border-radius:25px}
+.var-ball.list-ball{background:var(--violet);font-size:0.6rem;width:auto;min-width:65px;padding:0 10px;border-radius:25px}
+.var-ball.str-ball::before,.var-ball.list-ball::before{display:none}
+
+@keyframes ballDrop{0%{transform:translateY(-50px) scale(0.6);opacity:0}40%{transform:translateY(8px) scale(1.08);opacity:1}55%{transform:translateY(-6px) scale(0.96)}70%{transform:translateY(3px) scale(1.02)}100%{transform:translateY(0) scale(1);opacity:1}}
+.var-ball.dropping{animation:ballDrop 0.5s cubic-bezier(0.34,1.56,0.64,1) forwards}
+
+@keyframes ballGlow{0%,100%{box-shadow:3px 3px 0 var(--black)}50%{box-shadow:3px 3px 0 var(--black),0 0 20px rgba(234,179,8,0.6)}}
+.var-ball.glow{animation:ballGlow 0.6s ease 2}
+
+/* ===== COMPARISON VISUAL ===== */
+.compare-visual{display:flex;align-items:center;justify-content:center;gap:1rem;padding:1.5rem;min-height:160px;background:var(--white);border-radius:12px;border:3px dashed var(--black);position:relative;flex-wrap:wrap}
+.compare-bin{display:flex;flex-direction:column;align-items:center;gap:6px}
+.compare-bin-label{font-family:'Courier New',monospace;font-size:0.85rem;font-weight:900;color:var(--black);background:var(--yellow);padding:2px 8px;border:2px solid var(--black)}
+.compare-bin-body{width:70px;height:85px;position:relative;background:var(--white);border:3px solid var(--black);border-top:3px dashed var(--black);border-radius:4px 4px 16px 16px;display:flex;align-items:center;justify-content:center;box-shadow:var(--shadow-sm)}
+.compare-ball{width:50px;height:50px;border-radius:50%;background:var(--yellow);display:flex;align-items:center;justify-content:center;font-family:'Courier New',monospace;font-size:1rem;font-weight:900;color:var(--black);border:3px solid var(--black);box-shadow:2px 2px 0 var(--black);position:relative}
+.compare-ball::before{content:'';position:absolute;top:6px;left:10px;width:12px;height:8px;border-radius:50%;background:rgba(255,255,255,0.5);transform:rotate(-20deg)}
+.compare-op{font-family:'Courier New',monospace;font-size:2rem;font-weight:900;color:var(--red);padding:0 0.5rem;filter:drop-shadow(2px 2px 0 rgba(0,0,0,0.15))}
+.compare-result{font-family:'Courier New',monospace;font-size:1rem;font-weight:900;padding:0.6rem 1.2rem;border:var(--border);box-shadow:var(--shadow-sm);min-width:90px;text-align:center}
+.compare-result.true{background:var(--lime);color:var(--black);animation:jumpTrue 0.4s ease}
+.compare-result.false{background:var(--red);color:#fff;animation:jumpFalse 0.4s ease}
+
+@keyframes jumpTrue{0%{transform:scale(0)}50%{transform:scale(1.15)}100%{transform:scale(1)}}
+@keyframes jumpFalse{0%,100%{transform:translateX(0)}20%,60%{transform:translateX(-6px)}40%,80%{transform:translateX(6px)}}
+
+/* ===== ITERATION PROGRESS ===== */
+.iter-visual{display:flex;gap:0.8rem;flex-wrap:wrap;margin-top:0.8rem;justify-content:center}
+.iter-dot{width:52px;height:52px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1rem;font-weight:900;font-family:'Courier New',monospace;border:var(--border);background:var(--white);color:var(--black);transition:all 0.3s;box-shadow:var(--shadow-sm)}
+.iter-dot.done{background:var(--lime);color:var(--black);box-shadow:var(--shadow-sm)}
+.iter-dot.current{background:var(--pink);color:#fff;transform:translate(-2px,-2px);box-shadow:5px 5px 0 var(--black);animation:stoneBounce 0.8s ease infinite}
+
+@keyframes stoneBounce{0%,100%{transform:translate(-2px,-2px)}50%{transform:translate(-2px,-8px)}}
+
+/* ===== OUTPUT PANEL ===== */
+.output-panel{background:var(--white);border-radius:12px;overflow:hidden;border:var(--border-thick);box-shadow:var(--shadow)}
+.output-body{padding:1.2rem;font-family:'Courier New',monospace;font-size:1.05rem;min-height:70px;color:var(--black);white-space:pre-wrap;overflow-wrap:break-word;word-break:keep-all;font-weight:700;line-height:1.8;background:#F0FDF4}
+.output-empty{color:#bbb;font-style:italic;font-weight:600}
+
+/* ===== PATTERN DISPLAY ===== */
+.pattern-display{font-family:'Courier New',monospace;font-size:1.3rem;line-height:1.8;letter-spacing:0.15em;color:var(--orange);min-height:100px;padding:1.2rem;background:var(--white);border-radius:8px;border:var(--border)}
+
+@keyframes popIn{0%{transform:scale(0);opacity:0}60%{transform:scale(1.3)}100%{transform:scale(1);opacity:1}}
+
+/* ===== GRID TABLE ===== */
+.grid-table{display:inline-grid;gap:4px;margin-top:0.8rem}
+.grid-cell{width:50px;height:50px;display:flex;align-items:center;justify-content:center;font-size:0.9rem;font-weight:900;font-family:'Courier New',monospace;border:var(--border);background:var(--white);color:var(--black);transition:all 0.2s;box-shadow:var(--shadow-sm)}
+.grid-cell.filled{background:#EFF6FF;border-color:var(--blue)}
+.grid-cell.current-cell{background:var(--yellow);border-color:var(--black);box-shadow:3px 3px 0 var(--orange);transform:scale(1.05)}
+
+/* ===== CELEBRATION ===== */
+@keyframes confetti-fall{0%{transform:translateY(-10px) rotate(0deg);opacity:1}100%{transform:translateY(100vh) rotate(720deg);opacity:0}}
+.confetti{position:fixed;width:12px;height:12px;pointer-events:none;z-index:9999;animation:confetti-fall 3s ease-out forwards;border:2px solid var(--black)}
+
+/* ===== MISC ===== */
+.section-sep{height:4px;background:var(--black);max-width:200px;margin:2rem auto}
+.footer{text-align:center;padding:3rem 2rem;color:#888;font-size:0.95rem;font-weight:700;border-top:var(--border)}
+.sub-panel{background:var(--white);border-radius:12px;border:var(--border);overflow:hidden;box-shadow:var(--shadow-sm)}
+.sub-panel .panel-header{background:var(--black);padding:0.8rem 1rem;font-size:0.9rem;font-weight:800;color:var(--white)}
+::-webkit-scrollbar{width:8px;height:8px}
+::-webkit-scrollbar-thumb{background:var(--black);border-radius:0}
+::-webkit-scrollbar-track{background:#e5e5e0}
+
+/* Tablet */
+@media(max-width:768px){
+  .hero{padding:1.5rem 1rem}
+  .hero h1{font-size:clamp(1.6rem,5vw,2.5rem)}
+  .hero .subtitle{font-size:1rem;margin-bottom:1.5rem}
+  .hero-nav{grid-template-columns:1fr;gap:0.8rem}
+  .hero-card{padding:1rem}
+  .hero-card .card-icon{font-size:1.8rem}
+  .hero-card h3{font-size:1rem}
+  .hero-card p{font-size:0.8rem}
+  .hero-mascot,.hero .mascot-hero{font-size:3rem}
+  .section{padding:2rem 1rem}
+  .section-header h2{font-size:1.5rem}
+  .section-header p{font-size:0.9rem}
+  .viz-card{padding:1.2rem;margin-bottom:1.8rem}
+  .viz-layout{grid-template-columns:1fr}
+  .compare-visual{flex-direction:column}
+  .controls{justify-content:center;gap:0.5rem}
+  .speed-control{margin-left:0;width:100%}
+  .top-nav{padding:0 1rem;height:52px}
+  .top-nav .logo{font-size:0.9rem;margin-right:1rem}
+  .top-nav a{font-size:0.78rem;padding:0.3rem 0.6rem}
+  .code-lines{padding:0.8rem;font-size:0.88rem;line-height:1.8}
+  .code-line{padding:3px 6px;min-height:30px}
+  .code-line .line-num{width:26px;margin-right:10px;font-size:0.82rem}
+  .explain-bubble{padding:0.8rem 1rem;font-size:0.9rem}
+  .var-containers{padding:0.8rem;gap:0.8rem}
+  .var-bin-body{width:72px;height:85px}
+  .var-ball{width:48px;height:48px;font-size:0.85rem}
+  .btn{padding:0.5rem 0.9rem;font-size:0.82rem}
+}
+
+/* Mobile small */
+@media(max-width:480px){
+  .hero{padding:1.2rem 0.7rem}
+  .hero h1{font-size:1.5rem}
+  .hero .subtitle{font-size:0.85rem}
+  .hero-mascot,.hero .mascot-hero{font-size:2.5rem}
+  .hero-nav{gap:0.6rem}
+  .hero-card{padding:0.8rem}
+  .hero-card .card-icon{font-size:1.5rem}
+  .hero-card h3{font-size:0.88rem}
+  .hero-card p{font-size:0.72rem}
+  .section{padding:1.5rem 0.7rem}
+  .section-header h2{font-size:1.2rem}
+  .section-header p{font-size:0.82rem}
+  .viz-card{padding:0.8rem;margin-bottom:1.2rem;border-radius:8px}
+  .viz-card h3{font-size:0.95rem}
+  .viz-card .desc{font-size:0.82rem;padding:0.5rem 0.7rem}
+  .code-lines{padding:0.5rem;font-size:0.78rem;line-height:1.7;max-height:260px}
+  .code-line{padding:2px 4px;min-height:26px}
+  .code-line .line-num{width:22px;margin-right:8px;font-size:0.72rem}
+  .panel-header{padding:0.5rem 0.8rem;font-size:0.82rem}
+  .dot{width:10px;height:10px}
+  .explain-bubble{padding:0.7rem;font-size:0.82rem}
+  .explain-bubble .mascot{font-size:1.4rem}
+  .var-containers{padding:0.6rem;gap:0.6rem;min-height:100px}
+  .var-bin-label{font-size:0.72rem;padding:0.15rem 0.5rem}
+  .var-bin-body{width:60px;height:72px}
+  .var-ball{width:42px;height:42px;font-size:0.78rem}
+  .var-ball.str-ball,.var-ball.list-ball,.var-ball.bool-ball{font-size:0.5rem;min-width:42px;padding:0 5px}
+  .controls{gap:0.4rem}
+  .btn{padding:0.4rem 0.7rem;font-size:0.75rem;border-width:2px;box-shadow:2px 2px 0 var(--black)}
+  .speed-control{font-size:0.75rem}
+  .speed-control input[type="range"]{width:70px}
+  .output-body{padding:0.8rem;font-size:0.88rem;min-height:50px}
+  .top-nav{height:46px;padding:0 0.5rem}
+  .top-nav .logo{font-size:0.82rem;margin-right:0.5rem}
+  .top-nav a{font-size:0.7rem;padding:0.25rem 0.4rem}
+  .footer{padding:1.5rem 1rem;font-size:0.82rem}
+}
+</style>
+</head>
+<body>
+
+<section class="hero" id="top">
+  <a href="index.html" style="display:inline-flex;align-items:center;gap:0.5rem;padding:0.6rem 1.2rem;background:var(--lime);border:3px solid var(--black);border-radius:8px;box-shadow:3px 3px 0 var(--black);text-decoration:none;color:var(--black);font-weight:900;font-size:0.9rem;margin-bottom:1rem;transition:all 0.15s;position:relative;z-index:1" onmouseover="this.style.transform='translate(-1px,-1px)';this.style.boxShadow='5px 5px 0 var(--black)'" onmouseout="this.style.transform='';this.style.boxShadow='3px 3px 0 var(--black)'">← 전체 학습 가이드로 돌아가기</a>
+  <div class="hero-mascot">🐍</div>
+  <h1>Python <span>반복구조</span> 시각화</h1>
+  <p class="subtitle">코드 실행 흐름을 한 단계씩 눈으로 확인하세요</p>
+  <div class="hero-nav">
+    <a class="hero-card card-for" href="#sec-for"><div class="card-icon">🔄</div><h3>for 반복문</h3><p>차례대로 반복하기</p></a>
+    <a class="hero-card card-while" href="#sec-while"><div class="card-icon">⏳</div><h3>while 반복문</h3><p>조건에 따라 반복하기</p></a>
+    <a class="hero-card card-nested" href="#sec-nested"><div class="card-icon">🔲</div><h3>중첩 반복</h3><p>반복 속의 반복</p></a>
+    <a class="hero-card card-real" href="#sec-real"><div class="card-icon">🌟</div><h3>실제 예제</h3><p>실생활에서 쓰이는 반복</p></a>
+  </div>
+</section>
+
+<nav class="top-nav" id="topNav">
+  <span class="logo">🐍 PYTHON LOOPS</span>
+  <a href="index.html">📚 전체 가이드</a><a href="#sec-for">for문</a><a href="#sec-while">while문</a><a href="#sec-nested">중첩</a><a href="#sec-real">실제</a><a href="#top">↑ 위로</a>
+</nav>
+
+<!-- ======== SECTION 1: for ======== -->
+<section class="section" id="sec-for">
+  <div class="section-header"><span class="badge badge-for">1단계</span><h2>🔄 for 반복문</h2><p>정해진 개수만큼 반복해요!</p></div>
+  <div class="concept-box"><h4>💡 핵심 개념</h4><p><code>for 변수 in 수열:</code> — 마치 상자에서 하나씩 꺼내듯이, 수열의 각 값을 변수에 넣으며 반복합니다! <code>range(3)</code>이면 0, 1, 2 세 번 반복해요.</p></div>
+
+  <!-- Ex 1-1 -->
+  <div class="viz-card" id="v-for1">
+    <h3>📌 예제 1-1: range()로 숫자 출력하기</h3>
+    <div class="desc">range(3)은 0, 1, 2를 의미해요. i가 하나씩 받으면서 출력합니다!</div>
+    <div class="viz-layout">
+      <div>
+        <div class="code-panel"><div class="panel-header"><div class="dots"><span class="dot dot-red"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span></div><span>📄 코드</span></div>
+          <div class="code-lines" id="for1-code">
+            <div class="code-line" data-line="1"><span class="line-num">1</span><code><span class="kw">for</span> <span class="var">i</span> <span class="kw">in</span> <span class="fn">range</span>(<span class="num">3</span>):</code></div>
+            <div class="code-line" data-line="2"><span class="line-num">2</span><code>    <span class="fn">print</span>(<span class="var">i</span>)</code></div>
+          </div></div>
+        <div class="controls"><button class="btn btn-play" onclick="V.for1.play()">▶ 실행</button><button class="btn btn-step" onclick="V.for1.step()">⏭ 한 단계</button><button class="btn btn-reset" onclick="V.for1.reset()">🔄 다시</button><div class="speed-control"><span>속도</span><input type="range" min="200" max="2000" value="800" id="for1-speed"></div></div>
+        <div class="explain-bubble" id="for1-explain"><span class="mascot">🐍</span><span>▶를 눌러 시작해봐요!</span></div>
+      </div>
+      <div class="state-panel">
+        <div class="var-containers" id="for1-vars"></div>
+        <div class="sub-panel"><div class="panel-header">🎯 진행 상황</div><div style="padding:1rem"><div class="iter-visual" id="for1-iter"><div class="iter-dot" data-idx="0">0</div><div class="iter-dot" data-idx="1">1</div><div class="iter-dot" data-idx="2">2</div></div></div></div>
+        <div class="output-panel"><div class="panel-header">📺 출력 결과</div><div class="output-body" id="for1-output"><span class="output-empty">아직 아무것도 출력되지 않았어요</span></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Ex 1-2 -->
+  <div class="viz-card" id="v-for2">
+    <h3>📌 예제 1-2: 1부터 4까지 출력하기</h3>
+    <div class="desc">range(1, 5)는 1부터 4까지를 의미해요. (5는 포함 안 함!)</div>
+    <div class="viz-layout">
+      <div>
+        <div class="code-panel"><div class="panel-header"><div class="dots"><span class="dot dot-red"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span></div><span>📄 코드</span></div>
+          <div class="code-lines" id="for2-code">
+            <div class="code-line" data-line="1"><span class="line-num">1</span><code><span class="var">n</span> <span class="op">=</span> <span class="num">4</span></code></div>
+            <div class="code-line" data-line="2"><span class="line-num">2</span><code></code></div>
+            <div class="code-line" data-line="3"><span class="line-num">3</span><code><span class="kw">for</span> <span class="var">i</span> <span class="kw">in</span> <span class="fn">range</span>(<span class="num">1</span>, <span class="var">n</span> <span class="op">+</span> <span class="num">1</span>):</code></div>
+            <div class="code-line" data-line="4"><span class="line-num">4</span><code>    <span class="fn">print</span>(<span class="var">i</span>)</code></div>
+          </div></div>
+        <div class="controls"><button class="btn btn-play" onclick="V.for2.play()">▶ 실행</button><button class="btn btn-step" onclick="V.for2.step()">⏭ 한 단계</button><button class="btn btn-reset" onclick="V.for2.reset()">🔄 다시</button><div class="speed-control"><span>속도</span><input type="range" min="200" max="2000" value="800" id="for2-speed"></div></div>
+        <div class="explain-bubble" id="for2-explain"><span class="mascot">🐍</span><span>시작해봐요!</span></div>
+      </div>
+      <div class="state-panel">
+        <div class="var-containers" id="for2-vars"></div>
+        <div class="sub-panel"><div class="panel-header">🎯 진행 상황</div><div style="padding:1rem"><div class="iter-visual" id="for2-iter"><div class="iter-dot" data-idx="0">1</div><div class="iter-dot" data-idx="1">2</div><div class="iter-dot" data-idx="2">3</div><div class="iter-dot" data-idx="3">4</div></div></div></div>
+        <div class="output-panel"><div class="panel-header">📺 출력 결과</div><div class="output-body" id="for2-output"><span class="output-empty">아직 아무것도 출력되지 않았어요</span></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Ex 1-3 -->
+  <div class="viz-card" id="v-for3">
+    <h3>📌 예제 1-3: 단어 하나씩 출력하기</h3>
+    <div class="desc">문자열을 공백으로 나눈 다음, 각 단어를 하나씩 출력합니다!</div>
+    <div class="viz-layout">
+      <div>
+        <div class="code-panel"><div class="panel-header"><div class="dots"><span class="dot dot-red"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span></div><span>📄 코드</span></div>
+          <div class="code-lines" id="for3-code">
+            <div class="code-line" data-line="1"><span class="line-num">1</span><code><span class="var">t</span> <span class="op">=</span> <span class="str">"hello python world"</span>.<span class="fn">split</span>()</code></div>
+            <div class="code-line" data-line="2"><span class="line-num">2</span><code></code></div>
+            <div class="code-line" data-line="3"><span class="line-num">3</span><code><span class="kw">for</span> <span class="var">s</span> <span class="kw">in</span> <span class="var">t</span>:</code></div>
+            <div class="code-line" data-line="4"><span class="line-num">4</span><code>    <span class="fn">print</span>(<span class="var">s</span>)</code></div>
+          </div></div>
+        <div class="controls"><button class="btn btn-play" onclick="V.for3.play()">▶ 실행</button><button class="btn btn-step" onclick="V.for3.step()">⏭ 한 단계</button><button class="btn btn-reset" onclick="V.for3.reset()">🔄 다시</button><div class="speed-control"><span>속도</span><input type="range" min="200" max="2000" value="800" id="for3-speed"></div></div>
+        <div class="explain-bubble" id="for3-explain"><span class="mascot">🐍</span><span>시작해봐요!</span></div>
+      </div>
+      <div class="state-panel">
+        <div class="var-containers" id="for3-vars"></div>
+        <div class="sub-panel"><div class="panel-header">📚 단어들</div><div style="padding:1rem"><div class="iter-visual" id="for3-iter"><div class="iter-dot" data-idx="0" style="width:auto;padding:0 12px;font-size:0.9rem">hello</div><div class="iter-dot" data-idx="1" style="width:auto;padding:0 12px;font-size:0.9rem">python</div><div class="iter-dot" data-idx="2" style="width:auto;padding:0 12px;font-size:0.9rem">world</div></div></div></div>
+        <div class="output-panel"><div class="panel-header">📺 출력 결과</div><div class="output-body" id="for3-output"><span class="output-empty">아직 아무것도 출력되지 않았어요</span></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-sep"></div>
+
+<!-- ======== SECTION 2: while ======== -->
+<section class="section" id="sec-while">
+  <div class="section-header"><span class="badge badge-while">2단계</span><h2>⏳ while 반복문</h2><p>조건이 맞는 동안 계속 반복해요!</p></div>
+  <div class="concept-box"><h4>💡 핵심 개념</h4><p><code>while 조건식:</code> — 조건이 참(True)인 동안 계속 반복하고, 거짓(False)이 되면 멈춰요. <code>break</code>는 즉시 탈출, <code>continue</code>는 건너뛰고 다음 반복으로!</p></div>
+
+  <!-- Ex 2-1 -->
+  <div class="viz-card" id="v-while1">
+    <h3>📌 예제 2-1: 1부터 3까지 while로 출력하기</h3>
+    <div class="desc">n이 3 이하인 동안 계속 출력하고, 1씩 늘려요!</div>
+    <div class="viz-layout">
+      <div>
+        <div class="code-panel"><div class="panel-header"><div class="dots"><span class="dot dot-red"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span></div><span>📄 코드</span></div>
+          <div class="code-lines" id="while1-code">
+            <div class="code-line" data-line="1"><span class="line-num">1</span><code><span class="var">n</span> <span class="op">=</span> <span class="num">1</span></code></div>
+            <div class="code-line" data-line="2"><span class="line-num">2</span><code><span class="kw">while</span> <span class="var">n</span> <span class="op">&lt;=</span> <span class="num">3</span>:</code></div>
+            <div class="code-line" data-line="3"><span class="line-num">3</span><code>    <span class="fn">print</span>(<span class="var">n</span>)</code></div>
+            <div class="code-line" data-line="4"><span class="line-num">4</span><code>    <span class="var">n</span> <span class="op">=</span> <span class="var">n</span> <span class="op">+</span> <span class="num">1</span></code></div>
+          </div></div>
+        <div class="controls"><button class="btn btn-play" onclick="V.while1.play()">▶ 실행</button><button class="btn btn-step" onclick="V.while1.step()">⏭ 한 단계</button><button class="btn btn-reset" onclick="V.while1.reset()">🔄 다시</button><div class="speed-control"><span>속도</span><input type="range" min="200" max="2000" value="800" id="while1-speed"></div></div>
+        <div class="explain-bubble" id="while1-explain"><span class="mascot">🐍</span><span>시작해봐요!</span></div>
+      </div>
+      <div class="state-panel">
+        <div class="var-containers" id="while1-vars"></div>
+        <div class="compare-visual" id="while1-cmp"><span style="color:#999;font-size:0.95rem">조건이 여기 나타나요</span></div>
+        <div class="output-panel"><div class="panel-header">📺 출력 결과</div><div class="output-body" id="while1-output"><span class="output-empty">아직 아무것도 출력되지 않았어요</span></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Ex 2-2 -->
+  <div class="viz-card" id="v-while2">
+    <h3>📌 예제 2-2: break로 중간에 멈추기</h3>
+    <div class="desc">음수가 나오면 break로 즉시 멈춰요!</div>
+    <div class="viz-layout">
+      <div>
+        <div class="code-panel"><div class="panel-header"><div class="dots"><span class="dot dot-red"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span></div><span>📄 코드</span></div>
+          <div class="code-lines" id="while2-code">
+            <div class="code-line" data-line="1"><span class="line-num">1</span><code><span class="var">arr</span> <span class="op">=</span> [<span class="num">5</span>, <span class="num">3</span>, <span class="num">8</span>, <span class="op">-</span><span class="num">1</span>]</code></div>
+            <div class="code-line" data-line="2"><span class="line-num">2</span><code><span class="var">i</span> <span class="op">=</span> <span class="num">0</span></code></div>
+            <div class="code-line" data-line="3"><span class="line-num">3</span><code><span class="kw">while</span> <span class="var">i</span> <span class="op">&lt;</span> <span class="fn">len</span>(<span class="var">arr</span>):</code></div>
+            <div class="code-line" data-line="4"><span class="line-num">4</span><code>    <span class="kw">if</span> <span class="var">arr</span>[<span class="var">i</span>] <span class="op">&lt;</span> <span class="num">0</span>:</code></div>
+            <div class="code-line" data-line="5"><span class="line-num">5</span><code>        <span class="kw">break</span></code></div>
+            <div class="code-line" data-line="6"><span class="line-num">6</span><code>    <span class="fn">print</span>(<span class="var">arr</span>[<span class="var">i</span>])</code></div>
+            <div class="code-line" data-line="7"><span class="line-num">7</span><code>    <span class="var">i</span> <span class="op">=</span> <span class="var">i</span> <span class="op">+</span> <span class="num">1</span></code></div>
+          </div></div>
+        <div class="controls"><button class="btn btn-play" onclick="V.while2.play()">▶ 실행</button><button class="btn btn-step" onclick="V.while2.step()">⏭ 한 단계</button><button class="btn btn-reset" onclick="V.while2.reset()">🔄 다시</button><div class="speed-control"><span>속도</span><input type="range" min="200" max="2000" value="800" id="while2-speed"></div></div>
+        <div class="explain-bubble" id="while2-explain"><span class="mascot">🐍</span><span>시작해봐요!</span></div>
+      </div>
+      <div class="state-panel">
+        <div class="var-containers" id="while2-vars"></div>
+        <div class="compare-visual" id="while2-cmp"><span style="color:#999;font-size:0.95rem">조건이 여기 나타나요</span></div>
+        <div class="output-panel"><div class="panel-header">📺 출력 결과</div><div class="output-body" id="while2-output"><span class="output-empty">아직 아무것도 출력되지 않았어요</span></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Ex 2-3 -->
+  <div class="viz-card" id="v-while3">
+    <h3>📌 예제 2-3: continue로 건너뛰기</h3>
+    <div class="desc">3의 배수는 건너뛰고, 나머지만 출력해요!</div>
+    <div class="viz-layout">
+      <div>
+        <div class="code-panel"><div class="panel-header"><div class="dots"><span class="dot dot-red"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span></div><span>📄 코드</span></div>
+          <div class="code-lines" id="while3-code">
+            <div class="code-line" data-line="1"><span class="line-num">1</span><code><span class="var">i</span> <span class="op">=</span> <span class="num">1</span></code></div>
+            <div class="code-line" data-line="2"><span class="line-num">2</span><code><span class="kw">while</span> <span class="var">i</span> <span class="op">&lt;=</span> <span class="num">7</span>:</code></div>
+            <div class="code-line" data-line="3"><span class="line-num">3</span><code>    <span class="kw">if</span> <span class="var">i</span> <span class="op">%</span> <span class="num">3</span> <span class="op">==</span> <span class="num">0</span>:</code></div>
+            <div class="code-line" data-line="4"><span class="line-num">4</span><code>        <span class="var">i</span> <span class="op">=</span> <span class="var">i</span> <span class="op">+</span> <span class="num">1</span></code></div>
+            <div class="code-line" data-line="5"><span class="line-num">5</span><code>        <span class="kw">continue</span></code></div>
+            <div class="code-line" data-line="6"><span class="line-num">6</span><code>    <span class="fn">print</span>(<span class="var">i</span>)</code></div>
+            <div class="code-line" data-line="7"><span class="line-num">7</span><code>    <span class="var">i</span> <span class="op">=</span> <span class="var">i</span> <span class="op">+</span> <span class="num">1</span></code></div>
+          </div></div>
+        <div class="controls"><button class="btn btn-play" onclick="V.while3.play()">▶ 실행</button><button class="btn btn-step" onclick="V.while3.step()">⏭ 한 단계</button><button class="btn btn-reset" onclick="V.while3.reset()">🔄 다시</button><div class="speed-control"><span>속도</span><input type="range" min="200" max="2000" value="800" id="while3-speed"></div></div>
+        <div class="explain-bubble" id="while3-explain"><span class="mascot">🐍</span><span>시작해봐요!</span></div>
+      </div>
+      <div class="state-panel">
+        <div class="var-containers" id="while3-vars"></div>
+        <div class="compare-visual" id="while3-cmp"><span style="color:#999;font-size:0.95rem">조건이 여기 나타나요</span></div>
+        <div class="output-panel"><div class="panel-header">📺 출력 결과</div><div class="output-body" id="while3-output"><span class="output-empty">아직 아무것도 출력되지 않았어요</span></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-sep"></div>
+
+<!-- ======== SECTION 3: nested ======== -->
+<section class="section" id="sec-nested">
+  <div class="section-header"><span class="badge badge-nested">3단계</span><h2>🔲 중첩 반복문</h2><p>반복 속에 또 다른 반복이 있어요!</p></div>
+  <div class="concept-box"><h4>💡 핵심 개념</h4><p>for문이나 while문을 다른 반복문 안에 넣을 수 있어요. 마치 상자 안에 또 다른 상자가 있는 것처럼! 이렇게 하면 복잡한 패턴을 만들 수 있어요.</p></div>
+
+  <!-- Ex 3-1 -->
+  <div class="viz-card" id="v-nested1">
+    <h3>📌 예제 3-1: 별 삼각형 그리기</h3>
+    <div class="desc">1개, 2개, 3개, 4개의 별을 줄마다 출력해요!</div>
+    <div class="viz-layout">
+      <div>
+        <div class="code-panel"><div class="panel-header"><div class="dots"><span class="dot dot-red"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span></div><span>📄 코드</span></div>
+          <div class="code-lines" id="nested1-code">
+            <div class="code-line" data-line="1"><span class="line-num">1</span><code><span class="kw">for</span> <span class="var">i</span> <span class="kw">in</span> <span class="fn">range</span>(<span class="num">1</span>, <span class="num">5</span>):</code></div>
+            <div class="code-line" data-line="2"><span class="line-num">2</span><code>    <span class="kw">for</span> <span class="var">j</span> <span class="kw">in</span> <span class="fn">range</span>(<span class="var">i</span>):</code></div>
+            <div class="code-line" data-line="3"><span class="line-num">3</span><code>        <span class="fn">print</span>(<span class="str">"*"</span>, <span class="op">end</span><span class="op">=</span><span class="str">""</span>)</code></div>
+            <div class="code-line" data-line="4"><span class="line-num">4</span><code>    <span class="fn">print</span>()</code></div>
+          </div></div>
+        <div class="controls"><button class="btn btn-play" onclick="V.nested1.play()">▶ 실행</button><button class="btn btn-step" onclick="V.nested1.step()">⏭ 한 단계</button><button class="btn btn-reset" onclick="V.nested1.reset()">🔄 다시</button><div class="speed-control"><span>속도</span><input type="range" min="200" max="2000" value="800" id="nested1-speed"></div></div>
+        <div class="explain-bubble" id="nested1-explain"><span class="mascot">🐍</span><span>시작해봐요!</span></div>
+      </div>
+      <div class="state-panel">
+        <div class="var-containers" id="nested1-vars"></div>
+        <div class="sub-panel"><div class="panel-header">🌟 패턴</div><div style="padding:1.5rem"><div class="pattern-display" id="nested1-pattern"></div></div></div>
+        <div class="output-panel"><div class="panel-header">📺 출력 결과</div><div class="output-body" id="nested1-output"><span class="output-empty">아직 아무것도 출력되지 않았어요</span></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Ex 3-2 -->
+  <div class="viz-card" id="v-nested2">
+    <h3>📌 예제 3-2: 3x4 숫자표 만들기</h3>
+    <div class="desc">3줄, 각 줄마다 4개의 숫자를 출력해요!</div>
+    <div class="viz-layout">
+      <div>
+        <div class="code-panel"><div class="panel-header"><div class="dots"><span class="dot dot-red"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span></div><span>📄 코드</span></div>
+          <div class="code-lines" id="nested2-code">
+            <div class="code-line" data-line="1"><span class="line-num">1</span><code><span class="kw">for</span> <span class="var">i</span> <span class="kw">in</span> <span class="fn">range</span>(<span class="num">3</span>):</code></div>
+            <div class="code-line" data-line="2"><span class="line-num">2</span><code>    <span class="kw">for</span> <span class="var">j</span> <span class="kw">in</span> <span class="fn">range</span>(<span class="num">4</span>):</code></div>
+            <div class="code-line" data-line="3"><span class="line-num">3</span><code>        <span class="fn">print</span>(<span class="var">i</span><span class="op">*</span><span class="num">4</span><span class="op">+</span><span class="var">j</span>, <span class="op">end</span><span class="op">=</span><span class="str">" "</span>)</code></div>
+            <div class="code-line" data-line="4"><span class="line-num">4</span><code>    <span class="fn">print</span>()</code></div>
+          </div></div>
+        <div class="controls"><button class="btn btn-play" onclick="V.nested2.play()">▶ 실행</button><button class="btn btn-step" onclick="V.nested2.step()">⏭ 한 단계</button><button class="btn btn-reset" onclick="V.nested2.reset()">🔄 다시</button><div class="speed-control"><span>속도</span><input type="range" min="200" max="2000" value="800" id="nested2-speed"></div></div>
+        <div class="explain-bubble" id="nested2-explain"><span class="mascot">🐍</span><span>시작해봐요!</span></div>
+      </div>
+      <div class="state-panel">
+        <div class="var-containers" id="nested2-vars"></div>
+        <div class="sub-panel"><div class="panel-header">📊 테이블</div><div style="padding:1.5rem"><div style="overflow-x:auto"><div class="grid-table" id="nested2-grid"></div></div></div></div>
+        <div class="output-panel"><div class="panel-header">📺 출력 결과</div><div class="output-body" id="nested2-output"><span class="output-empty">아직 아무것도 출력되지 않았어요</span></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-sep"></div>
+
+<!-- ======== SECTION 4: real ======== -->
+<section class="section" id="sec-real">
+  <div class="section-header"><span class="badge badge-real">4단계</span><h2>🌟 실생활 예제</h2><p>반복문으로 실제 문제를 풀어봐요!</p></div>
+  <div class="concept-box"><h4>💡 핵심 개념</h4><p>반복문은 여러 데이터를 처리하거나, 어떤 조건을 만족할 때까지 계산하는데 정말 유용해요! 합계를 구하거나, 조건을 확인하거나, 패턴을 찾을 때 많이 쓰인답니다.</p></div>
+
+  <!-- Ex 4-1 -->
+  <div class="viz-card" id="v-real1">
+    <h3>📌 예제 4-1: 1부터 5까지의 합 구하기</h3>
+    <div class="desc">1 + 2 + 3 + 4 + 5 = 15 를 반복문으로 계산해요!</div>
+    <div class="viz-layout">
+      <div>
+        <div class="code-panel"><div class="panel-header"><div class="dots"><span class="dot dot-red"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span></div><span>📄 코드</span></div>
+          <div class="code-lines" id="real1-code">
+            <div class="code-line" data-line="1"><span class="line-num">1</span><code><span class="var">total</span> <span class="op">=</span> <span class="num">0</span></code></div>
+            <div class="code-line" data-line="2"><span class="line-num">2</span><code><span class="kw">for</span> <span class="var">i</span> <span class="kw">in</span> <span class="fn">range</span>(<span class="num">1</span>, <span class="num">6</span>):</code></div>
+            <div class="code-line" data-line="3"><span class="line-num">3</span><code>    <span class="var">total</span> <span class="op">=</span> <span class="var">total</span> <span class="op">+</span> <span class="var">i</span></code></div>
+            <div class="code-line" data-line="4"><span class="line-num">4</span><code><span class="fn">print</span>(<span class="var">total</span>)</code></div>
+          </div></div>
+        <div class="controls"><button class="btn btn-play" onclick="V.real1.play()">▶ 실행</button><button class="btn btn-step" onclick="V.real1.step()">⏭ 한 단계</button><button class="btn btn-reset" onclick="V.real1.reset()">🔄 다시</button><div class="speed-control"><span>속도</span><input type="range" min="200" max="2000" value="800" id="real1-speed"></div></div>
+        <div class="explain-bubble" id="real1-explain"><span class="mascot">🐍</span><span>시작해봐요!</span></div>
+      </div>
+      <div class="state-panel">
+        <div class="var-containers" id="real1-vars"></div>
+        <div class="sub-panel"><div class="panel-header">➕ 계산 과정</div><div style="padding:1.5rem"><div id="real1-calc" style="font-size:1.1rem;color:#333;font-weight:600;font-family:'Courier New',monospace">total = 0</div></div></div>
+        <div class="output-panel"><div class="panel-header">📺 출력 결과</div><div class="output-body" id="real1-output"><span class="output-empty">아직 아무것도 출력되지 않았어요</span></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Ex 4-2 -->
+  <div class="viz-card" id="v-real2">
+    <h3>📌 예제 4-2: 7이 소수인지 확인하기</h3>
+    <div class="desc">어떤 수가 1과 자신으로만 나누어지면 소수예요! 7은 소수일까요?</div>
+    <div class="viz-layout">
+      <div>
+        <div class="code-panel"><div class="panel-header"><div class="dots"><span class="dot dot-red"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span></div><span>📄 코드</span></div>
+          <div class="code-lines" id="real2-code">
+            <div class="code-line" data-line="1"><span class="line-num">1</span><code><span class="var">n</span> <span class="op">=</span> <span class="num">7</span></code></div>
+            <div class="code-line" data-line="2"><span class="line-num">2</span><code><span class="var">is_prime</span> <span class="op">=</span> <span class="str">True</span></code></div>
+            <div class="code-line" data-line="3"><span class="line-num">3</span><code><span class="kw">for</span> <span class="var">i</span> <span class="kw">in</span> <span class="fn">range</span>(<span class="num">2</span>, <span class="var">n</span>):</code></div>
+            <div class="code-line" data-line="4"><span class="line-num">4</span><code>    <span class="kw">if</span> <span class="var">n</span> <span class="op">%</span> <span class="var">i</span> <span class="op">==</span> <span class="num">0</span>:</code></div>
+            <div class="code-line" data-line="5"><span class="line-num">5</span><code>        <span class="var">is_prime</span> <span class="op">=</span> <span class="str">False</span></code></div>
+            <div class="code-line" data-line="6"><span class="line-num">6</span><code><span class="fn">print</span>(<span class="var">is_prime</span>)</code></div>
+          </div></div>
+        <div class="controls"><button class="btn btn-play" onclick="V.real2.play()">▶ 실행</button><button class="btn btn-step" onclick="V.real2.step()">⏭ 한 단계</button><button class="btn btn-reset" onclick="V.real2.reset()">🔄 다시</button><div class="speed-control"><span>속도</span><input type="range" min="200" max="2000" value="800" id="real2-speed"></div></div>
+        <div class="explain-bubble" id="real2-explain"><span class="mascot">🐍</span><span>시작해봐요!</span></div>
+      </div>
+      <div class="state-panel">
+        <div class="var-containers" id="real2-vars"></div>
+        <div class="compare-visual" id="real2-cmp"><span style="color:#999;font-size:0.95rem">조건이 여기 나타나요</span></div>
+        <div class="output-panel"><div class="panel-header">📺 출력 결과</div><div class="output-body" id="real2-output"><span class="output-empty">아직 아무것도 출력되지 않았어요</span></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-sep"></div>
+
+<footer class="footer">
+  <p>Python 반복구조 시각화 학습 — 코드의 흐름을 눈으로 확인하세요.</p>
+  <p style="margin-top:1rem;font-size:0.9rem">Made with ❤️ for learning</p>
+</footer>
+
+<script>
+// Audio
+let audioCtx;
+function initAudio(){if(!audioCtx)try{audioCtx=new(window.AudioContext||window.webkitAudioContext)()}catch(e){}}
+function playSound(f,d){try{initAudio();if(!audioCtx)return;const o=audioCtx.createOscillator(),g=audioCtx.createGain();o.connect(g);g.connect(audioCtx.destination);o.frequency.value=f;g.gain.setValueAtTime(0.2,audioCtx.currentTime);g.gain.exponentialRampToValueAtTime(0.01,audioCtx.currentTime+d);o.start(audioCtx.currentTime);o.stop(audioCtx.currentTime+d)}catch(e){}}
+
+// Helper: render compare
+function renderCmp(elId,v1,val1,op,val2,result){
+  const el=document.getElementById(elId);if(!el)return;
+  const ops={'<=':'≤','<':'<','>':'>','>=':'≥','==':'=','!=':'≠'};
+  el.innerHTML=`<div class="compare-bin"><div class="compare-bin-label">${v1}</div><div class="compare-bin-body"><div class="compare-ball">${val1}</div></div></div><div class="compare-op">${ops[op]||op}</div><div class="compare-bin"><div class="compare-bin-label">${val2}</div><div class="compare-bin-body"><div class="compare-ball">${val2}</div></div></div><div class="compare-result ${result?'true':'false'}">${result?'✅ 맞아요!':'❌ 아니에요!'}</div>`;
+}
+
+// Viz Engine
+class Viz{
+  constructor(cardId,codeId,outputId,explainId,speedId){
+    this.cardId=cardId;this.codeEl=document.getElementById(codeId);
+    this.outputEl=document.getElementById(outputId);this.explainEl=document.getElementById(explainId);
+    this.speedEl=document.getElementById(speedId);this.steps=[];this.pc=-1;this.outBuf='';this.running=false;this.vars={};
+  }
+  speed(){return this.speedEl?+this.speedEl.value:800}
+  setExplain(t){if(this.explainEl)this.explainEl.innerHTML=`<span class="mascot">🐍</span><span>${t}</span>`}
+  setVar(name,val){
+    this.vars[name]=val;
+    const container=document.querySelector(`#${this.cardId} .var-containers`);if(!container)return;
+    let bin=container.querySelector(`.var-bin[data-name="${name}"]`);
+    if(!bin){
+      const colors=['color-blue','color-green','color-purple','color-cyan'];
+      const ci=container.querySelectorAll('.var-bin').length%colors.length;
+      bin=document.createElement('div');bin.className=`var-bin ${colors[ci]}`;bin.setAttribute('data-name',name);
+      bin.innerHTML=`<div class="var-bin-label">${name}</div><div class="var-bin-body"></div>`;
+      container.appendChild(bin);
+    }
+    const body=bin.querySelector('.var-bin-body');
+    const isArr=Array.isArray(val);const isStr=typeof val==='string';
+    let cls='var-ball dropping';
+    if(isStr)cls+=' str-ball';else if(isArr)cls+=' list-ball';else cls+=' num-'+(Math.abs(val)%8);
+    let display=isArr?'['+val.join(',')+']':String(val);
+    body.innerHTML=`<div class="${cls}">${display}</div>`;
+    bin.classList.add('wobble-active');setTimeout(()=>bin.classList.remove('wobble-active'),600);
+    playSound(400,0.08);
+  }
+  out(text){this.outBuf+=String(text);if(this.outputEl)this.outputEl.textContent=this.outBuf}
+  setLine(n){
+    document.querySelectorAll(`#${this.cardId} .code-line`).forEach(el=>{if(el.classList.contains('active')){el.classList.remove('active');el.classList.add('executed')}});
+    if(n>0){const el=document.querySelector(`#${this.cardId} .code-line[data-line="${n}"]`);if(el){el.classList.remove('executed');el.classList.add('active')}}
+  }
+  iterDot(id,idx,state){
+    const dot=document.querySelector(`#${id} .iter-dot[data-idx="${idx}"]`);if(!dot)return;
+    dot.classList.remove('done','current');
+    if(state==='current')dot.classList.add('current');
+    else if(state==='done')dot.classList.add('done');
+  }
+  step(){
+    if(this.pc>=this.steps.length-1){this.setExplain('🎉 모두 끝났어요! 잘했어요!');this.celebrate();return false}
+    this.pc++;this.steps[this.pc].call(this);return this.pc<this.steps.length-1;
+  }
+  play(){if(this.running){this.running=false;return}if(this.pc>=this.steps.length-1)this.reset();this.running=true;this._loop()}
+  _loop(){if(!this.running)return;const more=this.step();if(more&&this.running)setTimeout(()=>this._loop(),this.speed());else{this.running=false;if(!more){this.setExplain('🎉 모두 끝났어요! 잘했어요!');this.celebrate()}}}
+  reset(){
+    this.running=false;this.pc=-1;this.outBuf='';this.vars={};
+    document.querySelectorAll(`#${this.cardId} .code-line`).forEach(e=>e.classList.remove('active','executed'));
+    const vc=document.querySelector(`#${this.cardId} .var-containers`);if(vc)vc.innerHTML='';
+    if(this.outputEl)this.outputEl.textContent='';
+    document.querySelectorAll(`#${this.cardId} .iter-dot`).forEach(d=>{d.classList.remove('done','current');d.style.background='';d.style.textDecoration=''});
+    this.setExplain('▶ 실행 버튼을 눌러 시작해봐요!');
+    const calc=document.querySelector(`#${this.cardId} [id$="-calc"]`);if(calc)calc.textContent='total = 0';
+    const cmp=document.querySelector(`#${this.cardId} .compare-visual`);if(cmp)cmp.innerHTML='<span style="color:#999;font-size:0.95rem">조건이 여기 나타나요</span>';
+    const grid=document.querySelector(`#${this.cardId} .grid-cell`);
+    if(grid)document.querySelectorAll(`#${this.cardId} .grid-cell`).forEach(c=>{c.classList.remove('filled','current-cell');c.textContent=''});
+  }
+  celebrate(){
+    playSound(523,0.2);setTimeout(()=>playSound(659,0.2),100);setTimeout(()=>playSound(784,0.3),200);
+    for(let i=0;i<15;i++)setTimeout(()=>{const c=document.createElement('div');c.className='confetti';c.style.left=Math.random()*100+'vw';c.style.background=['#ff6b9d','#4f9cfb','#22d3ee','#fbbf24','#a78bfa'][Math.floor(Math.random()*5)];document.body.appendChild(c);setTimeout(()=>c.remove(),3000)},i*40);
+  }
+}
+const V={};
+
+// ===== FOR1: range(3) → 0,1,2 =====
+V.for1=new Viz('v-for1','for1-code','for1-output','for1-explain','for1-speed');
+V.for1.steps=[
+  function(){this.setLine(1);this.setExplain('🎯 range(3)은 [0, 1, 2] 세 개의 숫자를 만들어요!')},
+  function(){this.setLine(1);this.setVar('i',0);this.iterDot('for1-iter',0,'current');this.setExplain('첫 번째! 통 i에 공 <b>0</b>을 넣었어요 🏀')},
+  function(){this.setLine(2);this.out('0\n');this.setExplain('📺 print(i) → <b>0</b>을 화면에 출력!')},
+  function(){this.setLine(1);this.setVar('i',1);this.iterDot('for1-iter',0,'done');this.iterDot('for1-iter',1,'current');this.setExplain('두 번째! 통 i의 공을 <b>1</b>로 바꿨어요 🔄')},
+  function(){this.setLine(2);this.out('1\n');this.setExplain('📺 print(i) → <b>1</b> 출력!')},
+  function(){this.setLine(1);this.setVar('i',2);this.iterDot('for1-iter',1,'done');this.iterDot('for1-iter',2,'current');this.setExplain('세 번째! 통 i의 공을 <b>2</b>로 바꿨어요 🔄')},
+  function(){this.setLine(2);this.out('2\n');this.setExplain('📺 print(i) → <b>2</b> 출력!')},
+  function(){this.setLine(0);this.iterDot('for1-iter',2,'done');this.setExplain('✅ 3개 모두 출력 완료! 반복이 끝났어요!')}
+];
+
+// ===== FOR2: 1~4 =====
+V.for2=new Viz('v-for2','for2-code','for2-output','for2-explain','for2-speed');
+V.for2.steps=[
+  function(){this.setLine(1);this.setVar('n',4);this.setExplain('통 n에 공 <b>4</b>를 넣었어요!')},
+  function(){this.setLine(3);this.setVar('i',1);this.iterDot('for2-iter',0,'current');this.setExplain('첫 번째! 통 i에 공 <b>1</b>')},
+  function(){this.setLine(4);this.out('1\n');this.setExplain('📺 <b>1</b> 출력!')},
+  function(){this.setLine(3);this.setVar('i',2);this.iterDot('for2-iter',0,'done');this.iterDot('for2-iter',1,'current');this.setExplain('통 i의 공을 <b>2</b>로!')},
+  function(){this.setLine(4);this.out('2\n');this.setExplain('📺 <b>2</b> 출력!')},
+  function(){this.setLine(3);this.setVar('i',3);this.iterDot('for2-iter',1,'done');this.iterDot('for2-iter',2,'current');this.setExplain('통 i의 공을 <b>3</b>으로!')},
+  function(){this.setLine(4);this.out('3\n');this.setExplain('📺 <b>3</b> 출력!')},
+  function(){this.setLine(3);this.setVar('i',4);this.iterDot('for2-iter',2,'done');this.iterDot('for2-iter',3,'current');this.setExplain('마지막! 통 i의 공을 <b>4</b>로!')},
+  function(){this.setLine(4);this.out('4\n');this.setExplain('📺 <b>4</b> 출력!')},
+  function(){this.setLine(0);this.iterDot('for2-iter',3,'done');this.setExplain('✅ 1부터 4까지 모두 출력했어요!')}
+];
+
+// ===== FOR3: 문자열 리스트 =====
+V.for3=new Viz('v-for3','for3-code','for3-output','for3-explain','for3-speed');
+V.for3.steps=[
+  function(){this.setLine(1);this.setVar('t','[hello,python,world]');this.setExplain('문장을 공백으로 쪼개서 3개의 단어를 만들었어요!')},
+  function(){this.setLine(3);this.setVar('s','hello');this.iterDot('for3-iter',0,'current');this.setExplain('첫 번째 단어 <b>"hello"</b>를 통 s에!')},
+  function(){this.setLine(4);this.out('hello\n');this.setExplain('📺 "hello" 출력!')},
+  function(){this.setLine(3);this.setVar('s','python');this.iterDot('for3-iter',0,'done');this.iterDot('for3-iter',1,'current');this.setExplain('두 번째 단어 <b>"python"</b>으로!')},
+  function(){this.setLine(4);this.out('python\n');this.setExplain('📺 "python" 출력!')},
+  function(){this.setLine(3);this.setVar('s','world');this.iterDot('for3-iter',1,'done');this.iterDot('for3-iter',2,'current');this.setExplain('세 번째 단어 <b>"world"</b>로!')},
+  function(){this.setLine(4);this.out('world\n');this.setExplain('📺 "world" 출력!')},
+  function(){this.setLine(0);this.iterDot('for3-iter',2,'done');this.setExplain('✅ 모든 단어를 출력했어요!')}
+];
+
+// ===== WHILE1: 1~3 =====
+V.while1=new Viz('v-while1','while1-code','while1-output','while1-explain','while1-speed');
+V.while1.steps=[
+  function(){this.setLine(1);this.setVar('n',1);this.setExplain('통 n에 공 <b>1</b>을 넣었어요')},
+  function(){this.setLine(2);renderCmp('while1-cmp','n',1,'<=',3,true);this.setExplain('🤔 n(1) ≤ 3? → <b>맞아요!</b> 반복 계속!')},
+  function(){this.setLine(3);this.out('1\n');this.setExplain('📺 <b>1</b> 출력!')},
+  function(){this.setLine(4);this.setVar('n',2);this.setExplain('n+1 → 통 n의 공을 <b>2</b>로!')},
+  function(){this.setLine(2);renderCmp('while1-cmp','n',2,'<=',3,true);this.setExplain('🤔 n(2) ≤ 3? → <b>맞아요!</b>')},
+  function(){this.setLine(3);this.out('2\n');this.setExplain('📺 <b>2</b> 출력!')},
+  function(){this.setLine(4);this.setVar('n',3);this.setExplain('통 n의 공을 <b>3</b>으로!')},
+  function(){this.setLine(2);renderCmp('while1-cmp','n',3,'<=',3,true);this.setExplain('🤔 n(3) ≤ 3? → <b>맞아요!</b> 딱 같으니까!')},
+  function(){this.setLine(3);this.out('3\n');this.setExplain('📺 <b>3</b> 출력!')},
+  function(){this.setLine(4);this.setVar('n',4);this.setExplain('통 n의 공을 <b>4</b>로!')},
+  function(){this.setLine(2);renderCmp('while1-cmp','n',4,'<=',3,false);this.setExplain('🤔 n(4) ≤ 3? → <b>아니에요!</b> 4는 3보다 커요!')},
+  function(){this.setLine(0);this.setExplain('✅ 조건이 거짓! while 반복 끝!')}
+];
+
+// ===== WHILE2: break =====
+V.while2=new Viz('v-while2','while2-code','while2-output','while2-explain','while2-speed');
+V.while2.steps=[
+  function(){this.setLine(1);this.setVar('arr',[5,3,8,-1]);this.setExplain('배열 [5, 3, 8, -1]을 만들었어요')},
+  function(){this.setLine(2);this.setVar('i',0);this.setExplain('통 i에 공 <b>0</b> (첫 번째 위치)')},
+  function(){this.setLine(3);renderCmp('while2-cmp','i',0,'<',4,true);this.setExplain('🤔 i(0) < 4? → <b>맞아요!</b>')},
+  function(){this.setLine(4);renderCmp('while2-cmp','arr[0]',5,'<',0,false);this.setExplain('🤔 5가 음수? → <b>아니에요!</b>')},
+  function(){this.setLine(6);this.out('5\n');this.setExplain('📺 <b>5</b> 출력!')},
+  function(){this.setLine(7);this.setVar('i',1);this.setExplain('다음 칸으로! i = 1')},
+  function(){this.setLine(3);renderCmp('while2-cmp','i',1,'<',4,true);this.setExplain('🤔 i(1) < 4? → <b>맞아요!</b>')},
+  function(){this.setLine(4);renderCmp('while2-cmp','arr[1]',3,'<',0,false);this.setExplain('🤔 3이 음수? → <b>아니에요!</b>')},
+  function(){this.setLine(6);this.out('3\n');this.setExplain('📺 <b>3</b> 출력!')},
+  function(){this.setLine(7);this.setVar('i',2);this.setExplain('다음 칸! i = 2')},
+  function(){this.setLine(3);renderCmp('while2-cmp','i',2,'<',4,true);this.setExplain('🤔 i(2) < 4? → <b>맞아요!</b>')},
+  function(){this.setLine(4);renderCmp('while2-cmp','arr[2]',8,'<',0,false);this.setExplain('🤔 8이 음수? → <b>아니에요!</b>')},
+  function(){this.setLine(6);this.out('8\n');this.setExplain('📺 <b>8</b> 출력!')},
+  function(){this.setLine(7);this.setVar('i',3);this.setExplain('다음 칸! i = 3')},
+  function(){this.setLine(3);renderCmp('while2-cmp','i',3,'<',4,true);this.setExplain('🤔 i(3) < 4? → <b>맞아요!</b>')},
+  function(){this.setLine(4);renderCmp('while2-cmp','arr[3]',-1,'<',0,true);this.setExplain('🚨 -1이 음수? → <b>맞아요! 음수 발견!</b>')},
+  function(){this.setLine(5);this.setExplain('🛑 <b>break!</b> 반복을 즉시 멈춰요!')},
+  function(){this.setLine(0);this.setExplain('✅ 음수를 만나 break! 출력: 5, 3, 8')}
+];
+
+// ===== WHILE3: continue (3의 배수 건너뛰기) =====
+V.while3=new Viz('v-while3','while3-code','while3-output','while3-explain','while3-speed');
+V.while3.steps=[
+  function(){this.setLine(1);this.setVar('i',1);this.setExplain('통 i에 공 <b>1</b>')},
+  function(){this.setLine(2);renderCmp('while3-cmp','i',1,'<=',7,true);this.setExplain('🤔 i(1) ≤ 7? → <b>맞아요!</b>')},
+  function(){this.setLine(3);renderCmp('while3-cmp','1%3',1,'==',0,false);this.setExplain('1÷3 나머지=1, 3의 배수 아니에요!')},
+  function(){this.setLine(6);this.out('1\n');this.setExplain('📺 <b>1</b> 출력!')},
+  function(){this.setLine(7);this.setVar('i',2);this.setExplain('i를 1 늘려서 2로!')},
+  function(){this.setLine(2);renderCmp('while3-cmp','i',2,'<=',7,true);this.setExplain('🤔 i(2) ≤ 7? → <b>맞아요!</b>')},
+  function(){this.setLine(3);renderCmp('while3-cmp','2%3',2,'==',0,false);this.setExplain('2÷3 나머지=2, 3의 배수 아니에요!')},
+  function(){this.setLine(6);this.out('2\n');this.setExplain('📺 <b>2</b> 출력!')},
+  function(){this.setLine(7);this.setVar('i',3);this.setExplain('i를 1 늘려서 3으로!')},
+  function(){this.setLine(2);renderCmp('while3-cmp','i',3,'<=',7,true);this.setExplain('🤔 i(3) ≤ 7? → <b>맞아요!</b>')},
+  function(){this.setLine(3);renderCmp('while3-cmp','3%3',0,'==',0,true);this.setExplain('⚠️ 3÷3 나머지=0! <b>3의 배수!</b>')},
+  function(){this.setLine(4);this.setVar('i',4);this.setExplain('i를 4로 늘리고...')},
+  function(){this.setLine(5);this.setExplain('🚫 <b>continue!</b> 출력 건너뛰고 다음으로!')},
+  function(){this.setLine(2);renderCmp('while3-cmp','i',4,'<=',7,true);this.setExplain('🤔 i(4) ≤ 7? → <b>맞아요!</b>')},
+  function(){this.setLine(3);renderCmp('while3-cmp','4%3',1,'==',0,false);this.setExplain('4÷3 나머지=1, 3의 배수 아니에요!')},
+  function(){this.setLine(6);this.out('4\n');this.setExplain('📺 <b>4</b> 출력!')},
+  function(){this.setLine(7);this.setVar('i',5);this.setExplain('i = 5')},
+  function(){this.setLine(2);renderCmp('while3-cmp','i',5,'<=',7,true);this.setExplain('🤔 i(5) ≤ 7? → <b>맞아요!</b>')},
+  function(){this.setLine(3);renderCmp('while3-cmp','5%3',2,'==',0,false);this.setExplain('5÷3 나머지=2, 3의 배수 아니에요!')},
+  function(){this.setLine(6);this.out('5\n');this.setExplain('📺 <b>5</b> 출력!')},
+  function(){this.setLine(7);this.setVar('i',6);this.setExplain('i = 6')},
+  function(){this.setLine(2);renderCmp('while3-cmp','i',6,'<=',7,true);this.setExplain('🤔 i(6) ≤ 7? → <b>맞아요!</b>')},
+  function(){this.setLine(3);renderCmp('while3-cmp','6%3',0,'==',0,true);this.setExplain('⚠️ 6÷3 나머지=0! <b>3의 배수!</b>')},
+  function(){this.setLine(4);this.setVar('i',7);this.setExplain('i를 7로 늘리고...')},
+  function(){this.setLine(5);this.setExplain('🚫 <b>continue!</b> 건너뛰기!')},
+  function(){this.setLine(2);renderCmp('while3-cmp','i',7,'<=',7,true);this.setExplain('🤔 i(7) ≤ 7? → <b>맞아요!</b>')},
+  function(){this.setLine(3);renderCmp('while3-cmp','7%3',1,'==',0,false);this.setExplain('7÷3 나머지=1, 3의 배수 아니에요!')},
+  function(){this.setLine(6);this.out('7\n');this.setExplain('📺 <b>7</b> 출력!')},
+  function(){this.setLine(7);this.setVar('i',8);this.setExplain('i = 8')},
+  function(){this.setLine(2);renderCmp('while3-cmp','i',8,'<=',7,false);this.setExplain('🤔 i(8) ≤ 7? → <b>아니에요!</b> 8은 7보다 커요!')},
+  function(){this.setLine(0);this.setExplain('✅ 끝! 3의 배수(3,6) 건너뛰고 1,2,4,5,7 출력!')}
+];
+
+// ===== NESTED1: 별찍기 삼각형 (* / ** / *** / ****) =====
+V.nested1=new Viz('v-nested1','nested1-code','nested1-output','nested1-explain','nested1-speed');
+(function(){
+  var steps=[];
+  var rows=[];  // 완성된 행들
+  var curRow=''; // 현재 행
+  function updatePattern(rows,curRow){
+    var patEl=document.getElementById('nested1-pattern');if(!patEl)return;
+    var html='';
+    for(var r=0;r<rows.length;r++){html+='<span style="color:#f59e0b;font-size:1.8rem;letter-spacing:0.3em">'+rows[r]+'</span><br>'}
+    if(curRow){
+      html+='<span style="color:#f59e0b;font-size:1.8rem;letter-spacing:0.3em">'+curRow.slice(0,-1)+'</span>';
+      html+='<span style="color:#10b981;font-size:1.8rem;letter-spacing:0.3em;animation:popIn 0.3s ease">*</span>';
+    }
+    patEl.innerHTML=html;
+  }
+  for(var i=1;i<=4;i++){
+    (function(ii){
+      steps.push(function(){this.setLine(1);this.setVar('i',ii);this.setExplain(ii+'번째 줄! 별 '+ii+'개를 찍을 거예요 ⭐');curRow=''});
+      for(var j=0;j<ii;j++){
+        (function(jj,ii2){
+          steps.push(function(){this.setLine(2);this.setVar('j',jj);this.setExplain('안쪽: j = '+jj)});
+          steps.push(function(){this.setLine(3);this.out('*');curRow+='*';updatePattern(rows,curRow);this.setExplain('⭐ 별 1개! ('+ii2+'줄 '+(jj+1)+'번째)')});
+        })(j,ii);
+      }
+      steps.push(function(){this.setLine(4);this.out('\n');rows.push('*'.repeat(ii));curRow='';updatePattern(rows,'');this.setExplain(ii+'번째 줄 완성! "'+('*'.repeat(ii))+'"')});
+    })(i);
+  }
+  steps.push(function(){this.setLine(0);this.setExplain('✅ 별 삼각형 완성!')});
+  V.nested1.steps=steps;
+})();
+
+// ===== NESTED2: 3×4 번호 테이블 (1~12) =====
+V.nested2=new Viz('v-nested2','nested2-code','nested2-output','nested2-explain','nested2-speed');
+(function(){
+  var grid=document.getElementById('nested2-grid');
+  if(grid){grid.style.display='grid';grid.style.gridTemplateColumns='repeat(4,1fr)';grid.style.gap='4px';
+    for(var k=0;k<12;k++){var c=document.createElement('div');c.className='grid-cell';grid.appendChild(c)}}
+  var steps=[];
+  for(var i=0;i<3;i++){
+    (function(ii){
+      steps.push(function(){this.setLine(1);this.setVar('i',ii);this.setExplain((ii+1)+'번째 줄!')});
+      for(var j=0;j<4;j++){
+        (function(jj,ii2){
+          var val=ii2*4+jj+1, idx=ii2*4+jj;
+          steps.push(function(){
+            this.setLine(2);this.setVar('j',jj);
+            this.setLine(3);this.out(val+' ');
+            this.setExplain(ii2+'×4+'+jj+'+1 = <b>'+val+'</b>');
+            var cells=document.querySelectorAll('#nested2-grid .grid-cell');
+            cells.forEach(function(c){c.classList.remove('current-cell')});
+            if(cells[idx]){cells[idx].textContent=val;cells[idx].classList.add('filled','current-cell')}
+          });
+        })(j,ii);
+      }
+      steps.push(function(){this.setLine(4);this.out('\n');this.setExplain((ii+1)+'번째 줄 완성!');
+        document.querySelectorAll('#nested2-grid .grid-cell').forEach(function(c){c.classList.remove('current-cell')})});
+    })(i);
+  }
+  steps.push(function(){this.setLine(0);this.setExplain('✅ 3×4 번호 테이블 완성! 1부터 12까지!')});
+  V.nested2.steps=steps;
+})();
+
+// ===== REAL1: 합계 1~5 = 15 =====
+V.real1=new Viz('v-real1','real1-code','real1-output','real1-explain','real1-speed');
+V.real1.steps=[
+  function(){this.setLine(1);this.setVar('total',0);this.setExplain('통 total에 공 <b>0</b>! 여기에 숫자를 더할 거예요');var c=document.getElementById('real1-calc');if(c)c.textContent='total = 0'},
+  function(){this.setLine(2);this.setVar('i',1);this.setExplain('i = 1부터 시작!')},
+  function(){this.setLine(3);this.setVar('total',1);this.setExplain('0 + 1 = <b>1</b>');var c=document.getElementById('real1-calc');if(c)c.textContent='0 + 1 = 1'},
+  function(){this.setLine(2);this.setVar('i',2);this.setExplain('i = 2')},
+  function(){this.setLine(3);this.setVar('total',3);this.setExplain('1 + 2 = <b>3</b>');var c=document.getElementById('real1-calc');if(c)c.textContent='1 + 2 = 3'},
+  function(){this.setLine(2);this.setVar('i',3);this.setExplain('i = 3')},
+  function(){this.setLine(3);this.setVar('total',6);this.setExplain('3 + 3 = <b>6</b>');var c=document.getElementById('real1-calc');if(c)c.textContent='3 + 3 = 6'},
+  function(){this.setLine(2);this.setVar('i',4);this.setExplain('i = 4')},
+  function(){this.setLine(3);this.setVar('total',10);this.setExplain('6 + 4 = <b>10</b>');var c=document.getElementById('real1-calc');if(c)c.textContent='6 + 4 = 10'},
+  function(){this.setLine(2);this.setVar('i',5);this.setExplain('마지막! i = 5')},
+  function(){this.setLine(3);this.setVar('total',15);this.setExplain('10 + 5 = <b>15</b>!');var c=document.getElementById('real1-calc');if(c)c.textContent='10 + 5 = 15'},
+  function(){this.setLine(4);this.out('15\n');this.setExplain('📺 정답: <b>15</b>! 1+2+3+4+5 = 15!')},
+];
+
+// ===== REAL2: 소수 판별 (7 → True) =====
+V.real2=new Viz('v-real2','real2-code','real2-output','real2-explain','real2-speed');
+V.real2.steps=[
+  function(){this.setLine(1);this.setVar('n',7);this.setExplain('7이 소수인지 확인할 거예요!')},
+  function(){this.setLine(2);this.setVar('is_prime','True');this.setExplain('일단 소수라고 가정! (is_prime = True)')},
+  function(){this.setLine(3);this.setVar('i',2);this.setExplain('2부터 6까지 나눠볼 거예요!')},
+  function(){this.setLine(4);renderCmp('real2-cmp','7%2',1,'==',0,false);this.setExplain('7÷2 나머지 1 → 안 나눠져요!')},
+  function(){this.setLine(3);this.setVar('i',3);this.setExplain('다음! i = 3')},
+  function(){this.setLine(4);renderCmp('real2-cmp','7%3',1,'==',0,false);this.setExplain('7÷3 나머지 1 → 안 나눠져요!')},
+  function(){this.setLine(3);this.setVar('i',4);this.setExplain('다음! i = 4')},
+  function(){this.setLine(4);renderCmp('real2-cmp','7%4',3,'==',0,false);this.setExplain('7÷4 나머지 3 → 안 나눠져요!')},
+  function(){this.setLine(3);this.setVar('i',5);this.setExplain('다음! i = 5')},
+  function(){this.setLine(4);renderCmp('real2-cmp','7%5',2,'==',0,false);this.setExplain('7÷5 나머지 2 → 안 나눠져요!')},
+  function(){this.setLine(3);this.setVar('i',6);this.setExplain('마지막! i = 6')},
+  function(){this.setLine(4);renderCmp('real2-cmp','7%6',1,'==',0,false);this.setExplain('7÷6 나머지 1 → 안 나눠져요!')},
+  function(){this.setLine(6);this.out('True\n');this.setExplain('🎉 어떤 수로도 안 나눠져요! <b>7은 소수!</b>')},
+];
+
+// Nav scroll
+window.addEventListener('scroll',function(){var n=document.getElementById('topNav');if(n)n.classList.toggle('visible',window.scrollY>window.innerHeight*0.5)});
+document.querySelectorAll('a[href^="#"]').forEach(function(a){a.addEventListener('click',function(e){e.preventDefault();var t=document.querySelector(this.getAttribute('href'));if(t)t.scrollIntoView({behavior:'smooth'})})});
+</script>
+</body>
+</html>
