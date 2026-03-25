@@ -516,8 +516,8 @@ body{font-family:'Noto Sans KR','Pretendard',-apple-system,sans-serif;background
           <div class="code-lines" id="nested1-code">
             <div class="code-line" data-line="1"><span class="line-num">1</span><code><span class="kw">for</span> <span class="var">i</span> <span class="kw">in</span> <span class="fn">range</span>(<span class="num">1</span>, <span class="num">5</span>):</code></div>
             <div class="code-line" data-line="2"><span class="line-num">2</span><code>    <span class="kw">for</span> <span class="var">j</span> <span class="kw">in</span> <span class="fn">range</span>(<span class="var">i</span>):</code></div>
-            <div class="code-line" data-line="3"><span class="line-num">3</span><code>        <span class="fn">print</span>(<span class="str">"*"</span>, <span class="op">end</span><span class="op">=</span><span class="str">""</span>)</code></div>
-            <div class="code-line" data-line="4"><span class="line-num">4</span><code>    <span class="fn">print</span>()</code></div>
+            <div class="code-line" data-line="3"><span class="line-num">3</span><code>        <span class="fn">print</span>(<span class="str">"*"</span>, end=<span class="str">""</span>)</code></div>
+            <div class="code-line" data-line="4"><span class="line-num">4</span><code>    <span class="fn">print</span>(<span class="str">""</span>)</code></div>
           </div></div>
         <div class="controls"><button class="btn btn-play" onclick="V.nested1.play()">▶ 실행</button><button class="btn btn-step" onclick="V.nested1.step()">⏭ 한 단계</button><button class="btn btn-reset" onclick="V.nested1.reset()">🔄 다시</button><div class="speed-control"><span>속도</span><input type="range" min="200" max="2000" value="800" id="nested1-speed"></div></div>
         <div class="explain-bubble" id="nested1-explain"><span class="mascot">🐍</span><span>시작해봐요!</span></div>
@@ -540,8 +540,8 @@ body{font-family:'Noto Sans KR','Pretendard',-apple-system,sans-serif;background
           <div class="code-lines" id="nested2-code">
             <div class="code-line" data-line="1"><span class="line-num">1</span><code><span class="kw">for</span> <span class="var">i</span> <span class="kw">in</span> <span class="fn">range</span>(<span class="num">3</span>):</code></div>
             <div class="code-line" data-line="2"><span class="line-num">2</span><code>    <span class="kw">for</span> <span class="var">j</span> <span class="kw">in</span> <span class="fn">range</span>(<span class="num">4</span>):</code></div>
-            <div class="code-line" data-line="3"><span class="line-num">3</span><code>        <span class="fn">print</span>(<span class="var">i</span><span class="op">*</span><span class="num">4</span><span class="op">+</span><span class="var">j</span>, <span class="op">end</span><span class="op">=</span><span class="str">" "</span>)</code></div>
-            <div class="code-line" data-line="4"><span class="line-num">4</span><code>    <span class="fn">print</span>()</code></div>
+            <div class="code-line" data-line="3"><span class="line-num">3</span><code>        <span class="fn">print</span>(<span class="var">i</span><span class="op">*</span><span class="num">4</span><span class="op">+</span><span class="var">j</span><span class="op">+</span><span class="num">1</span>, end=<span class="str">" "</span>)</code></div>
+            <div class="code-line" data-line="4"><span class="line-num">4</span><code>    <span class="fn">print</span>(<span class="str">""</span>)</code></div>
           </div></div>
         <div class="controls"><button class="btn btn-play" onclick="V.nested2.play()">▶ 실행</button><button class="btn btn-step" onclick="V.nested2.step()">⏭ 한 단계</button><button class="btn btn-reset" onclick="V.nested2.reset()">🔄 다시</button><div class="speed-control"><span>속도</span><input type="range" min="200" max="2000" value="800" id="nested2-speed"></div></div>
         <div class="explain-bubble" id="nested2-explain"><span class="mascot">🐍</span><span>시작해봐요!</span></div>
@@ -595,10 +595,10 @@ body{font-family:'Noto Sans KR','Pretendard',-apple-system,sans-serif;background
         <div class="code-panel"><div class="panel-header"><div class="dots"><span class="dot dot-red"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span></div><span>📄 코드</span></div>
           <div class="code-lines" id="real2-code">
             <div class="code-line" data-line="1"><span class="line-num">1</span><code><span class="var">n</span> <span class="op">=</span> <span class="num">7</span></code></div>
-            <div class="code-line" data-line="2"><span class="line-num">2</span><code><span class="var">is_prime</span> <span class="op">=</span> <span class="str">True</span></code></div>
+            <div class="code-line" data-line="2"><span class="line-num">2</span><code><span class="var">is_prime</span> <span class="op">=</span> <span class="kw">True</span></code></div>
             <div class="code-line" data-line="3"><span class="line-num">3</span><code><span class="kw">for</span> <span class="var">i</span> <span class="kw">in</span> <span class="fn">range</span>(<span class="num">2</span>, <span class="var">n</span>):</code></div>
             <div class="code-line" data-line="4"><span class="line-num">4</span><code>    <span class="kw">if</span> <span class="var">n</span> <span class="op">%</span> <span class="var">i</span> <span class="op">==</span> <span class="num">0</span>:</code></div>
-            <div class="code-line" data-line="5"><span class="line-num">5</span><code>        <span class="var">is_prime</span> <span class="op">=</span> <span class="str">False</span></code></div>
+            <div class="code-line" data-line="5"><span class="line-num">5</span><code>        <span class="var">is_prime</span> <span class="op">=</span> <span class="kw">False</span></code></div>
             <div class="code-line" data-line="6"><span class="line-num">6</span><code><span class="fn">print</span>(<span class="var">is_prime</span>)</code></div>
           </div></div>
         <div class="controls"><button class="btn btn-play" onclick="V.real2.play()">▶ 실행</button><button class="btn btn-step" onclick="V.real2.step()">⏭ 한 단계</button><button class="btn btn-reset" onclick="V.real2.reset()">🔄 다시</button><div class="speed-control"><span>속도</span><input type="range" min="200" max="2000" value="800" id="real2-speed"></div></div>
@@ -860,7 +860,7 @@ V.nested1=new Viz('v-nested1','nested1-code','nested1-output','nested1-explain',
           steps.push(function(){this.setLine(3);this.out('*');curRow+='*';updatePattern(rows,curRow);this.setExplain('📺 <b>print("*")</b> — 별 ⭐을 1개 출력! ('+ii2+'번째 줄의 '+(jj+1)+'번째 별)')});
         })(j,ii);
       }
-      steps.push(function(){this.setLine(4);this.out('\n');rows.push('*'.repeat(ii));curRow='';updatePattern(rows,'');this.setExplain('📺 <b>print()</b> — 줄바꿈! '+ii+'번째 줄 완성: "'+('*'.repeat(ii))+'" (별 '+ii+'개)')});
+      steps.push(function(){this.setLine(4);this.out('\n');rows.push('*'.repeat(ii));curRow='';updatePattern(rows,'');this.setExplain('📺 <b>print("")</b> — 빈 문자열을 출력하고 줄바꿈! '+ii+'번째 줄 완성: "'+('*'.repeat(ii))+'" (별 '+ii+'개)')});
     })(i);
   }
   steps.push(function(){this.setLine(0);this.setExplain('✅ 별 삼각형 완성!')});
@@ -891,7 +891,7 @@ V.nested2=new Viz('v-nested2','nested2-code','nested2-output','nested2-explain',
           });
         })(j,ii);
       }
-      steps.push(function(){this.setLine(4);this.out('\n');this.setExplain((ii+1)+'번째 줄 완성!');
+      steps.push(function(){this.setLine(4);this.out('\n');this.setExplain('📺 <b>print("")</b> — 줄바꿈! '+(ii+1)+'번째 줄 완성!');
         document.querySelectorAll('#nested2-grid .grid-cell').forEach(function(c){c.classList.remove('current-cell')})});
     })(i);
   }
