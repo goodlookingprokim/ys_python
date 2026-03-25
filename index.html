@@ -39,7 +39,7 @@ body.with-sidebar{display:flex;min-height:100vh}
 .stat-label{font-size:0.8rem;font-weight:700;color:#666;margin-top:2px}
 
 /* Hero How-to */
-.hero-howto{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem;max-width:800px;width:100%;margin-bottom:2.5rem}
+.hero-howto{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem;max-width:900px;width:100%;margin:0 auto 2.5rem}
 @media(max-width:700px){.hero-howto{grid-template-columns:1fr}}
 .howto-card{background:var(--white);border:var(--border);border-radius:12px;padding:1.2rem;box-shadow:var(--shadow-sm);text-align:center}
 .howto-icon{font-size:2.5rem;margin-bottom:0.5rem}
@@ -231,8 +231,8 @@ body.with-sidebar{display:flex;min-height:100vh}
 @media(max-width:1024px){
   .main-content{padding:1.5rem;max-width:100%}
   .viz-card{padding:1.5rem}
-  .hero-nav{max-width:100%;padding:0 1rem}
-  .hero-howto{max-width:100%;padding:0 1rem}
+  .hero-nav{max-width:100%;padding:0 1rem;margin:0 auto 2rem}
+  .hero-howto{max-width:100%;padding:0 1rem;margin:0 auto 2.5rem}
 }
 
 /* Tablet portrait */
@@ -361,7 +361,7 @@ body.with-sidebar{display:flex;min-height:100vh}
 .footer{text-align:center;padding:2rem;color:#888;font-size:0.9rem;font-weight:700;border-top:var(--border);margin-top:2rem}
 
 /* Hide/show pages */
-#heroPage{display:block}
+#heroPage{display:flex;flex-direction:column;align-items:center;justify-content:center}
 #appPage{display:none}
 </style>
 </head>
