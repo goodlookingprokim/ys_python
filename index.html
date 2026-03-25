@@ -47,7 +47,7 @@ body.with-sidebar{display:flex;min-height:100vh}
 .howto-desc{font-size:0.8rem;color:#666;font-weight:600;word-break:keep-all;overflow-wrap:break-word}
 
 /* Hero Nav Cards */
-.hero-nav{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1.2rem;max-width:900px;width:100%;margin-bottom:2rem}
+.hero-nav{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem;max-width:900px;width:100%;margin:0 auto 2rem;justify-content:center}
 .hero-card{background:var(--white);border:var(--border-thick);border-radius:12px;padding:1.5rem;text-decoration:none;color:var(--black);transition:all 0.15s;cursor:pointer;box-shadow:var(--shadow-lg);position:relative;overflow:hidden}
 .hero-card:hover{transform:translate(-2px,-2px);box-shadow:8px 8px 0 var(--black)}
 .hero-card:active{transform:translate(2px,2px);box-shadow:2px 2px 0 var(--black)}
@@ -258,7 +258,7 @@ body.with-sidebar{display:flex;min-height:100vh}
   .demo-arrow{font-size:1.5rem}
   .hero-howto{gap:0.8rem}
   .howto-card{padding:0.8rem}
-  .hero-nav{gap:0.8rem}
+  .hero-nav{gap:0.8rem;grid-template-columns:repeat(3,1fr)}
   .hero-card{padding:1rem}
   .btn-start{padding:0.8rem 1.5rem;font-size:1rem}
   .copyright-notice{margin:1.5rem 0.5rem 0;padding:1rem}
@@ -308,7 +308,7 @@ body.with-sidebar{display:flex;min-height:100vh}
   .howto-icon{font-size:1.8rem}
   .howto-title{font-size:0.85rem}
   .howto-desc{font-size:0.72rem}
-  .hero-nav{gap:0.6rem;margin-bottom:1.2rem}
+  .hero-nav{gap:0.6rem;margin-bottom:1.2rem;grid-template-columns:1fr}
   .hero-card{padding:0.8rem}
   .hero-card .card-icon{font-size:1.6rem}
   .hero-card h3{font-size:0.9rem}
