@@ -411,6 +411,52 @@ body{font-family:'Noto Sans KR','Pretendard',-apple-system,sans-serif;background
       </div>
     </div>
   </div>
+
+  <!-- Ex 1-4: 과일 리스트 순회 (8차시) -->
+  <div class="viz-card" id="v-for4">
+    <h3>📌 예제 1-4: 과일 리스트 출력하기</h3>
+    <div class="desc">좋아하는 과일 목록을 리스트에 저장하고, for문으로 하나씩 출력합니다!</div>
+    <div class="viz-layout">
+      <div>
+        <div class="code-panel"><div class="panel-header"><div class="dots"><span class="dot dot-red"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span></div><span>📄 코드</span></div>
+          <div class="code-lines" id="for4-code">
+            <div class="code-line" data-line="1"><span class="line-num">1</span><code><span class="var">fruits</span> <span class="op">=</span> [<span class="str">"딸기"</span>, <span class="str">"포도"</span>, <span class="str">"오렌지"</span>]</code></div>
+            <div class="code-line" data-line="2"><span class="line-num">2</span><code></code></div>
+            <div class="code-line" data-line="3"><span class="line-num">3</span><code><span class="kw">for</span> <span class="var">fruit</span> <span class="kw">in</span> <span class="var">fruits</span>:</code></div>
+            <div class="code-line" data-line="4"><span class="line-num">4</span><code>    <span class="fn">print</span>(<span class="var">fruit</span>)</code></div>
+          </div></div>
+        <div class="controls"><button class="btn btn-play" onclick="V.for4.play()">▶ 실행</button><button class="btn btn-step" onclick="V.for4.step()">⏭ 한 단계</button><button class="btn btn-reset" onclick="V.for4.reset()">🔄 다시</button><div class="speed-control"><span>속도</span><input type="range" min="200" max="2000" value="800" id="for4-speed"></div></div>
+        <div class="explain-bubble" id="for4-explain"><span class="mascot">🐍</span><span>시작해봐요!</span></div>
+      </div>
+      <div class="state-panel">
+        <div class="var-containers" id="for4-vars"></div>
+        <div class="sub-panel"><div class="panel-header">🍓 과일들</div><div style="padding:1rem"><div class="iter-visual" id="for4-iter"><div class="iter-dot" data-idx="0" style="width:auto;padding:0 12px;font-size:0.9rem">딸기</div><div class="iter-dot" data-idx="1" style="width:auto;padding:0 12px;font-size:0.9rem">포도</div><div class="iter-dot" data-idx="2" style="width:auto;padding:0 12px;font-size:0.9rem">오렌지</div></div></div></div>
+        <div class="output-panel"><div class="panel-header">📺 출력 결과</div><div class="output-body" id="for4-output"><span class="output-empty">아직 아무것도 출력되지 않았어요</span></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Ex 1-5: 구구단 2단 (8차시) -->
+  <div class="viz-card" id="v-for5">
+    <h3>📌 예제 1-5: 구구단 2단 출력하기</h3>
+    <div class="desc">range(1, 10)으로 1부터 9까지 반복하며 2단 구구단을 출력합니다!</div>
+    <div class="viz-layout">
+      <div>
+        <div class="code-panel"><div class="panel-header"><div class="dots"><span class="dot dot-red"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span></div><span>📄 코드</span></div>
+          <div class="code-lines" id="for5-code">
+            <div class="code-line" data-line="1"><span class="line-num">1</span><code><span class="kw">for</span> <span class="var">i</span> <span class="kw">in</span> <span class="fn">range</span>(<span class="num">1</span>, <span class="num">10</span>):</code></div>
+            <div class="code-line" data-line="2"><span class="line-num">2</span><code>    <span class="fn">print</span>(<span class="str">f"2 x {i} = {2 * i}"</span>)</code></div>
+          </div></div>
+        <div class="controls"><button class="btn btn-play" onclick="V.for5.play()">▶ 실행</button><button class="btn btn-step" onclick="V.for5.step()">⏭ 한 단계</button><button class="btn btn-reset" onclick="V.for5.reset()">🔄 다시</button><div class="speed-control"><span>속도</span><input type="range" min="200" max="2000" value="800" id="for5-speed"></div></div>
+        <div class="explain-bubble" id="for5-explain"><span class="mascot">🐍</span><span>시작해봐요!</span></div>
+      </div>
+      <div class="state-panel">
+        <div class="var-containers" id="for5-vars"></div>
+        <div class="sub-panel"><div class="panel-header">🎯 진행 상황</div><div style="padding:1rem"><div class="iter-visual" id="for5-iter"><div class="iter-dot" data-idx="0">1</div><div class="iter-dot" data-idx="1">2</div><div class="iter-dot" data-idx="2">3</div><div class="iter-dot" data-idx="3">4</div><div class="iter-dot" data-idx="4">5</div><div class="iter-dot" data-idx="5">6</div><div class="iter-dot" data-idx="6">7</div><div class="iter-dot" data-idx="7">8</div><div class="iter-dot" data-idx="8">9</div></div></div></div>
+        <div class="output-panel"><div class="panel-header">📺 출력 결과</div><div class="output-body" id="for5-output"><span class="output-empty">아직 아무것도 출력되지 않았어요</span></div></div>
+      </div>
+    </div>
+  </div>
 </section>
 
 <div class="section-sep"></div>
@@ -497,6 +543,34 @@ body{font-family:'Noto Sans KR','Pretendard',-apple-system,sans-serif;background
       </div>
     </div>
   </div>
+
+  <!-- Ex 2-4: 짝수 합계 구하기 (15차시) -->
+  <div class="viz-card" id="v-while4">
+    <h3>📌 예제 2-4: 1~10 짝수 합계 구하기</h3>
+    <div class="desc">while문과 if문을 함께 사용! 1부터 10까지 중 짝수만 골라 합계를 구합니다.</div>
+    <div class="viz-layout">
+      <div>
+        <div class="code-panel"><div class="panel-header"><div class="dots"><span class="dot dot-red"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span></div><span>📄 코드</span></div>
+          <div class="code-lines" id="while4-code">
+            <div class="code-line" data-line="1"><span class="line-num">1</span><code><span class="var">total</span> <span class="op">=</span> <span class="num">0</span></code></div>
+            <div class="code-line" data-line="2"><span class="line-num">2</span><code><span class="var">i</span> <span class="op">=</span> <span class="num">1</span></code></div>
+            <div class="code-line" data-line="3"><span class="line-num">3</span><code><span class="kw">while</span> <span class="var">i</span> <span class="op">&lt;=</span> <span class="num">10</span>:</code></div>
+            <div class="code-line" data-line="4"><span class="line-num">4</span><code>    <span class="kw">if</span> <span class="var">i</span> <span class="op">%</span> <span class="num">2</span> <span class="op">==</span> <span class="num">0</span>:</code></div>
+            <div class="code-line" data-line="5"><span class="line-num">5</span><code>        <span class="var">total</span> <span class="op">+=</span> <span class="var">i</span></code></div>
+            <div class="code-line" data-line="6"><span class="line-num">6</span><code>    <span class="var">i</span> <span class="op">+=</span> <span class="num">1</span></code></div>
+            <div class="code-line" data-line="7"><span class="line-num">7</span><code><span class="fn">print</span>(<span class="str">"짝수 합계:"</span>, <span class="var">total</span>)</code></div>
+          </div></div>
+        <div class="controls"><button class="btn btn-play" onclick="V.while4.play()">▶ 실행</button><button class="btn btn-step" onclick="V.while4.step()">⏭ 한 단계</button><button class="btn btn-reset" onclick="V.while4.reset()">🔄 다시</button><div class="speed-control"><span>속도</span><input type="range" min="200" max="2000" value="800" id="while4-speed"></div></div>
+        <div class="explain-bubble" id="while4-explain"><span class="mascot">🐍</span><span>시작해봐요!</span></div>
+      </div>
+      <div class="state-panel">
+        <div class="var-containers" id="while4-vars"></div>
+        <div class="compare-visual" id="while4-cmp"><span style="color:#999;font-size:0.95rem">조건이 여기 나타나요</span></div>
+        <div class="sub-panel"><div class="panel-header">➕ 계산 과정</div><div style="padding:1rem"><div id="while4-calc" style="font-size:1.1rem;color:#333;font-weight:600;font-family:'Courier New',monospace">total = 0</div></div></div>
+        <div class="output-panel"><div class="panel-header">📺 출력 결과</div><div class="output-body" id="while4-output"><span class="output-empty">아직 아무것도 출력되지 않았어요</span></div></div>
+      </div>
+    </div>
+  </div>
 </section>
 
 <div class="section-sep"></div>
@@ -550,6 +624,28 @@ body{font-family:'Noto Sans KR','Pretendard',-apple-system,sans-serif;background
         <div class="var-containers" id="nested2-vars"></div>
         <div class="sub-panel"><div class="panel-header">📊 테이블</div><div style="padding:1.5rem"><div style="overflow-x:auto"><div class="grid-table" id="nested2-grid"></div></div></div></div>
         <div class="output-panel"><div class="panel-header">📺 출력 결과</div><div class="output-body" id="nested2-output"><span class="output-empty">아직 아무것도 출력되지 않았어요</span></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Ex 3-3: 역삼각형 별 패턴 (9차시) -->
+  <div class="viz-card" id="v-nested3">
+    <h3>📌 예제 3-3: 역삼각형 별 그리기</h3>
+    <div class="desc">range(5, 0, -1)로 5개부터 1개까지 줄어드는 별을 출력합니다! 역방향 range를 배워요.</div>
+    <div class="viz-layout">
+      <div>
+        <div class="code-panel"><div class="panel-header"><div class="dots"><span class="dot dot-red"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span></div><span>📄 코드</span></div>
+          <div class="code-lines" id="nested3-code">
+            <div class="code-line" data-line="1"><span class="line-num">1</span><code><span class="kw">for</span> <span class="var">i</span> <span class="kw">in</span> <span class="fn">range</span>(<span class="num">5</span>, <span class="num">0</span>, <span class="op">-</span><span class="num">1</span>):</code></div>
+            <div class="code-line" data-line="2"><span class="line-num">2</span><code>    <span class="fn">print</span>(<span class="str">"*"</span> <span class="op">*</span> <span class="var">i</span>)</code></div>
+          </div></div>
+        <div class="controls"><button class="btn btn-play" onclick="V.nested3.play()">▶ 실행</button><button class="btn btn-step" onclick="V.nested3.step()">⏭ 한 단계</button><button class="btn btn-reset" onclick="V.nested3.reset()">🔄 다시</button><div class="speed-control"><span>속도</span><input type="range" min="200" max="2000" value="800" id="nested3-speed"></div></div>
+        <div class="explain-bubble" id="nested3-explain"><span class="mascot">🐍</span><span>시작해봐요!</span></div>
+      </div>
+      <div class="state-panel">
+        <div class="var-containers" id="nested3-vars"></div>
+        <div class="sub-panel"><div class="panel-header">🌟 패턴</div><div style="padding:1.5rem"><div class="pattern-display" id="nested3-pattern"></div></div></div>
+        <div class="output-panel"><div class="panel-header">📺 출력 결과</div><div class="output-body" id="nested3-output"><span class="output-empty">아직 아무것도 출력되지 않았어요</span></div></div>
       </div>
     </div>
   </div>
@@ -608,6 +704,37 @@ body{font-family:'Noto Sans KR','Pretendard',-apple-system,sans-serif;background
         <div class="var-containers" id="real2-vars"></div>
         <div class="compare-visual" id="real2-cmp"><span style="color:#999;font-size:0.95rem">조건이 여기 나타나요</span></div>
         <div class="output-panel"><div class="panel-header">📺 출력 결과</div><div class="output-body" id="real2-output"><span class="output-empty">아직 아무것도 출력되지 않았어요</span></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Ex 4-3: 숫자 맞추기 게임 (12차시) -->
+  <div class="viz-card" id="v-real3">
+    <h3>📌 예제 4-3: 숫자 맞추기 게임</h3>
+    <div class="desc">while + if + break를 조합! 3번의 기회 안에 비밀 숫자 5를 맞춰보는 게임이에요.</div>
+    <div class="viz-layout">
+      <div>
+        <div class="code-panel"><div class="panel-header"><div class="dots"><span class="dot dot-red"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span></div><span>📄 코드</span></div>
+          <div class="code-lines" id="real3-code">
+            <div class="code-line" data-line="1"><span class="line-num">1</span><code><span class="var">secret</span> <span class="op">=</span> <span class="num">5</span></code></div>
+            <div class="code-line" data-line="2"><span class="line-num">2</span><code><span class="var">attempts</span> <span class="op">=</span> <span class="num">0</span></code></div>
+            <div class="code-line" data-line="3"><span class="line-num">3</span><code><span class="kw">while</span> <span class="var">attempts</span> <span class="op">&lt;</span> <span class="num">3</span>:</code></div>
+            <div class="code-line" data-line="4"><span class="line-num">4</span><code>    <span class="var">guess</span> <span class="op">=</span> <span class="fn">int</span>(<span class="fn">input</span>(<span class="str">"추측: "</span>))</code></div>
+            <div class="code-line" data-line="5"><span class="line-num">5</span><code>    <span class="kw">if</span> <span class="var">guess</span> <span class="op">==</span> <span class="var">secret</span>:</code></div>
+            <div class="code-line" data-line="6"><span class="line-num">6</span><code>        <span class="fn">print</span>(<span class="str">"정답!"</span>); <span class="kw">break</span></code></div>
+            <div class="code-line" data-line="7"><span class="line-num">7</span><code>    <span class="kw">elif</span> <span class="var">guess</span> <span class="op">&lt;</span> <span class="var">secret</span>:</code></div>
+            <div class="code-line" data-line="8"><span class="line-num">8</span><code>        <span class="fn">print</span>(<span class="str">"더 높은 수를 입력하세요."</span>)</code></div>
+            <div class="code-line" data-line="9"><span class="line-num">9</span><code>    <span class="kw">else</span>:</code></div>
+            <div class="code-line" data-line="10"><span class="line-num">10</span><code>        <span class="fn">print</span>(<span class="str">"더 낮은 수를 입력하세요."</span>)</code></div>
+            <div class="code-line" data-line="11"><span class="line-num">11</span><code>    <span class="var">attempts</span> <span class="op">+=</span> <span class="num">1</span></code></div>
+          </div></div>
+        <div class="controls"><button class="btn btn-play" onclick="V.real3.play()">▶ 실행</button><button class="btn btn-step" onclick="V.real3.step()">⏭ 한 단계</button><button class="btn btn-reset" onclick="V.real3.reset()">🔄 다시</button><div class="speed-control"><span>속도</span><input type="range" min="200" max="2000" value="800" id="real3-speed"></div></div>
+        <div class="explain-bubble" id="real3-explain"><span class="mascot">🐍</span><span>시작해봐요!</span></div>
+      </div>
+      <div class="state-panel">
+        <div class="var-containers" id="real3-vars"></div>
+        <div class="compare-visual" id="real3-cmp"><span style="color:#999;font-size:0.95rem">조건이 여기 나타나요</span></div>
+        <div class="output-panel"><div class="panel-header">📺 출력 결과</div><div class="output-body" id="real3-output"><span class="output-empty">아직 아무것도 출력되지 않았어요</span></div></div>
       </div>
     </div>
   </div>
@@ -933,6 +1060,115 @@ V.real2.steps=[
   function(){this.setLine(3);this.setVar('i',6);this.setExplain('마지막! i = 6')},
   function(){this.setLine(4);renderCmp('real2-cmp','7%6',1,'==',0,false);this.setExplain('7÷6 나머지 1 → 안 나눠져요!')},
   function(){this.setLine(6);this.out('True\n');this.setExplain('🎉 어떤 수로도 안 나눠져요! <b>7은 소수!</b>')},
+];
+
+// ===== FOR4: 과일 리스트 (8차시) =====
+V.for4=new Viz('v-for4','for4-code','for4-output','for4-explain','for4-speed');
+V.for4.steps=[
+  function(){this.setLine(1);this.setVar('fruits',['딸기','포도','오렌지'],'list');this.setExplain('📋 리스트(목록) <b>["딸기", "포도", "오렌지"]</b>를 만들어 통 fruits에 넣었어요! 칸막이 통에 3개의 과일이 들어있어요.')},
+  function(){this.setLine(3);this.setVar('fruit','딸기');this.iterDot('for4-iter',0,'current');this.setExplain('첫 번째 반복! 리스트에서 <b>"딸기"</b>를 꺼내 통 fruit에 넣었어요 🍓')},
+  function(){this.setLine(4);this.out('딸기\n');this.setExplain('📺 <b>print(fruit)</b> — 통 fruit의 값 <b>"딸기"</b>를 화면에 출력!')},
+  function(){this.setLine(3);this.setVar('fruit','포도');this.iterDot('for4-iter',0,'done');this.iterDot('for4-iter',1,'current');this.setExplain('두 번째 반복! 리스트에서 <b>"포도"</b>를 꺼내 통 fruit에 넣었어요 🍇')},
+  function(){this.setLine(4);this.out('포도\n');this.setExplain('📺 <b>print(fruit)</b> — 통 fruit의 값 <b>"포도"</b>를 화면에 출력!')},
+  function(){this.setLine(3);this.setVar('fruit','오렌지');this.iterDot('for4-iter',1,'done');this.iterDot('for4-iter',2,'current');this.setExplain('세 번째(마지막) 반복! 리스트에서 <b>"오렌지"</b>를 꺼내 통 fruit에 넣었어요 🍊')},
+  function(){this.setLine(4);this.out('오렌지\n');this.setExplain('📺 <b>print(fruit)</b> — 통 fruit의 값 <b>"오렌지"</b>를 화면에 출력!')},
+  function(){this.setLine(0);this.iterDot('for4-iter',2,'done');this.setExplain('✅ 리스트의 모든 과일 "딸기", "포도", "오렌지"를 출력했어요! 이게 바로 리스트 순회예요! 🎉')}
+];
+
+// ===== FOR5: 구구단 2단 (8차시) =====
+V.for5=new Viz('v-for5','for5-code','for5-output','for5-explain','for5-speed');
+(function(){
+  var steps=[];
+  steps.push(function(){this.setLine(1);this.setVar('range(1, 10)',[1,2,3,4,5,6,7,8,9],'range');this.setExplain('🎯 <b>range(1, 10)</b>은 1부터 9까지의 숫자를 만들어요! 이 숫자들로 2단 구구단을 만들 거예요.')});
+  for(var k=1;k<=9;k++){
+    (function(kk){
+      steps.push(function(){this.setLine(1);this.setVar('i',kk);this.iterDot('for5-iter',kk-1,'current');if(kk>1)this.iterDot('for5-iter',kk-2,'done');this.setExplain(kk+'번째 반복! 통 i에 <b>'+kk+'</b>을 넣었어요.')});
+      steps.push(function(){this.setLine(2);this.out('2 x '+kk+' = '+(2*kk)+'\n');this.setExplain('📺 <b>f"2 x {i} = {2 * i}"</b> → 2 × '+kk+' = <b>'+(2*kk)+'</b>을 출력!')});
+    })(k);
+  }
+  steps.push(function(){this.setLine(0);this.iterDot('for5-iter',8,'done');this.setExplain('✅ 구구단 2단 완성! range(1, 10)으로 1부터 9까지 반복하며 2×i를 계산했어요! 🎉')});
+  V.for5.steps=steps;
+})();
+
+// ===== WHILE4: 짝수 합계 (15차시) =====
+V.while4=new Viz('v-while4','while4-code','while4-output','while4-explain','while4-speed');
+(function(){
+  var steps=[];
+  steps.push(function(){this.setLine(1);this.setVar('total',0);this.setExplain('🏀 통 <b>total</b>에 <b>0</b>을 넣었어요! 여기에 짝수만 골라 더할 거예요.');var c=document.getElementById('while4-calc');if(c)c.textContent='total = 0'});
+  steps.push(function(){this.setLine(2);this.setVar('i',1);this.setExplain('🏀 통 <b>i</b>에 <b>1</b>을 넣었어요! 1부터 10까지 확인할 거예요.')});
+  var total=0;
+  for(var k=1;k<=10;k++){
+    (function(kk,t){
+      var isEven=kk%2===0;
+      steps.push(function(){this.setLine(3);renderCmp('while4-cmp','i',kk,'<=',10,true);this.setExplain('🔍 <b>while i <= 10</b> — i(='+kk+') ≤ 10? → <b>참(True)!</b>')});
+      steps.push(function(){this.setLine(4);renderCmp('while4-cmp','i%2',kk%2,'==',0,isEven);this.setExplain(isEven?'✅ '+kk+'÷2의 나머지=0! <b>짝수!</b> total에 더해요!':'❌ '+kk+'÷2의 나머지='+kk%2+'! <b>홀수!</b> 건너뛰어요.')});
+      if(isEven){
+        var newT=t+kk;
+        steps.push(function(){this.setLine(5);this.setVar('total',newT);this.setExplain('➕ <b>total += i</b> → total('+t+') + i('+kk+') = <b>'+newT+'</b>!');var c=document.getElementById('while4-calc');if(c)c.textContent=t+' + '+kk+' = '+newT});
+        total=newT;
+      }
+      var nextI=kk+1;
+      steps.push(function(){this.setLine(6);this.setVar('i',nextI);this.setExplain('➕ <b>i += 1</b> → '+kk+' + 1 = <b>'+nextI+'</b>')});
+    })(k,total);
+    if(k%2===0)total+=k;
+  }
+  steps.push(function(){this.setLine(3);renderCmp('while4-cmp','i',11,'<=',10,false);this.setExplain('🔍 i(=11) ≤ 10? → <b>거짓(False)!</b> while 반복이 끝나요!')});
+  steps.push(function(){this.setLine(7);this.out('짝수 합계: 30\n');this.setExplain('📺 <b>print("짝수 합계:", total)</b> → 2+4+6+8+10 = <b>30</b>! 🎉')});
+  V.while4.steps=steps;
+})();
+
+// ===== NESTED3: 역삼각형 별 (9차시) =====
+V.nested3=new Viz('v-nested3','nested3-code','nested3-output','nested3-explain','nested3-speed');
+(function(){
+  var steps=[];
+  var rows=[];
+  function updateRevPattern(rows){
+    var patEl=document.getElementById('nested3-pattern');if(!patEl)return;
+    var html='';
+    for(var r=0;r<rows.length;r++){
+      html+='<span style="color:#f59e0b;font-size:1.8rem;letter-spacing:0.3em">'+rows[r]+'</span><br>';
+    }
+    patEl.innerHTML=html;
+  }
+  steps.push(function(){this.setLine(1);this.setVar('range(5,0,-1)',[5,4,3,2,1],'range');this.setExplain('🎯 <b>range(5, 0, -1)</b>은 5부터 1까지 <b>거꾸로</b> 세는 숫자예요! 별이 줄어드는 역삼각형을 만들어요.')});
+  for(var i=5;i>=1;i--){
+    (function(ii){
+      var stars='*'.repeat(ii);
+      steps.push(function(){this.setLine(1);this.setVar('i',ii);this.setExplain('반복! 통 i에 <b>'+ii+'</b>을 넣었어요. 이번 줄에는 별 '+ii+'개를 찍을 거예요 ⭐')});
+      steps.push(function(){this.setLine(2);this.out(stars+'\n');rows.push(stars);updateRevPattern(rows);this.setExplain('📺 <b>print("*" * '+ii+')</b> → "'+stars+'" 출력! (별 '+ii+'개)')});
+    })(i);
+  }
+  steps.push(function(){this.setLine(0);this.setExplain('✅ 역삼각형 별 패턴 완성! range(5, 0, -1)로 5부터 1까지 거꾸로 반복했어요! 🎉')});
+  V.nested3.steps=steps;
+  var origReset3=V.nested3.reset.bind(V.nested3);
+  V.nested3.reset=function(){origReset3();rows=[];var p=document.getElementById('nested3-pattern');if(p)p.innerHTML='';};
+})();
+
+// ===== REAL3: 숫자 맞추기 게임 (12차시) =====
+V.real3=new Viz('v-real3','real3-code','real3-output','real3-explain','real3-speed');
+V.real3.steps=[
+  function(){this.setLine(1);this.setVar('secret',5);this.setExplain('🎯 비밀 숫자 <b>5</b>를 정했어요! 이걸 맞춰야 해요.')},
+  function(){this.setLine(2);this.setVar('attempts',0);this.setExplain('🏀 시도 횟수를 <b>0</b>으로 초기화했어요.')},
+  // 시도 1: 3 (너무 낮음)
+  function(){this.setLine(3);renderCmp('real3-cmp','attempts',0,'<',3,true);this.setExplain('🔍 <b>while attempts < 3</b> — 시도 0회 < 3? → <b>참!</b> 아직 기회가 있어요!')},
+  function(){this.setLine(4);this.setVar('guess',3);this.setExplain('🎲 첫 번째 추측! <b>3</b>을 입력했다고 가정해요.')},
+  function(){this.setLine(5);renderCmp('real3-cmp','guess',3,'==',5,false);this.setExplain('🔍 guess(=3) == secret(=5)? → <b>아니에요!</b> 3은 5가 아니죠.')},
+  function(){this.setLine(7);renderCmp('real3-cmp','guess',3,'<',5,true);this.setExplain('🔍 guess(=3) < secret(=5)? → <b>참!</b> 3은 5보다 작아요.')},
+  function(){this.setLine(8);this.out('더 높은 수를 입력하세요.\n');this.setExplain('💡 <b>"더 높은 수를 입력하세요."</b> 힌트를 줘요!')},
+  function(){this.setLine(10);this.setVar('attempts',1);this.setExplain('➕ attempts += 1 → 시도 횟수가 <b>1</b>이 되었어요.')},
+  // 시도 2: 8 (너무 높음)
+  function(){this.setLine(3);renderCmp('real3-cmp','attempts',1,'<',3,true);this.setExplain('🔍 시도 1회 < 3? → <b>참!</b> 아직 2번 더 시도할 수 있어요!')},
+  function(){this.setLine(4);this.setVar('guess',8);this.setExplain('🎲 두 번째 추측! <b>8</b>을 입력했어요.')},
+  function(){this.setLine(5);renderCmp('real3-cmp','guess',8,'==',5,false);this.setExplain('🔍 guess(=8) == secret(=5)? → <b>아니에요!</b>')},
+  function(){this.setLine(7);renderCmp('real3-cmp','guess',8,'<',5,false);this.setExplain('🔍 guess(=8) < secret(=5)? → <b>아니에요!</b> 8은 5보다 커요.')},
+  function(){this.setLine(9);this.out('더 낮은 수를 입력하세요.\n');this.setExplain('💡 <b>"더 낮은 수를 입력하세요."</b> 힌트를 줘요!')},
+  function(){this.setLine(10);this.setVar('attempts',2);this.setExplain('➕ attempts += 1 → 시도 횟수가 <b>2</b>가 되었어요.')},
+  // 시도 3: 5 (정답!)
+  function(){this.setLine(3);renderCmp('real3-cmp','attempts',2,'<',3,true);this.setExplain('🔍 시도 2회 < 3? → <b>참!</b> 마지막 기회!')},
+  function(){this.setLine(4);this.setVar('guess',5);this.setExplain('🎲 세 번째 추측! 힌트를 참고해서 <b>5</b>를 입력했어요!')},
+  function(){this.setLine(5);renderCmp('real3-cmp','guess',5,'==',5,true);this.setExplain('🔍 guess(=5) == secret(=5)? → <b>참(True)! 맞았어요!</b> 🎉')},
+  function(){this.setLine(6);this.out('정답!\n');this.setExplain('🎉 <b>"정답!"</b> 을 출력하고 break로 반복문을 빠져나가요!')},
+  function(){this.setLine(0);this.setExplain('✅ 숫자 맞추기 게임 성공! while + if + break를 조합해서 게임 로직을 만들었어요! 🎉')},
 ];
 
 // Nav scroll
