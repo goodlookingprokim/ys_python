@@ -4228,15 +4228,18 @@ V["f57"].steps=[
   function(){this.setLine(1);this.setVar("s",0,"global");this.setExplain('🌍 <b>전역변수</b> 통 <b>s=0</b>. 함수 밖에서 만든 변수! 굵은 빨간 테두리.')},
   function(){this.setLine(3);this.setVar("f","🔧 함수");this.setExplain('🎯 함수 <b>f(n)</b>를 정의해요! global s로 바깥의 🌍s를 바꿀 수 있는 설계도.')},
   function(){this.setLine(10);this.setFuncScope("f(3)");this.setExplain('📞 <b>f(3)</b> 호출! → 📦 함수 영역으로! 🌍s는 밖에 남아요.')},
-  function(){this.setLine(5);this.setVar("n",3,"param");this.setFuncAction('call','f(3) → n=3','전달 완료');this.setExplain('🎁 📦 함수 안: 매개변수 <b>n=3</b>')},
-  function(){this.setLine(6);this.setVar("k",0,"local");this.setFuncAction('loop','while k<n → 0<3?','참!');this.setExplain('🏠 📦 함수 안: 지역변수 <b>k=0</b>. 반복 시작!')},
-  function(){this.setLine(7);this.setVar("k",1,"local");this.setVar("s",1,"global");this.setFuncAction('op','k+=1, s+=k → 0+1','🌍 s=1');this.setExplain('⚙️ 📦 안에서 🌍 밖의 s를 <b>1</b>로!')},
-  function(){this.setLine(8);this.setFuncAction('loop','while k<n → 1<3?','참!');this.setExplain('🔄 반복!')},
-  function(){this.setLine(7);this.setVar("k",2,"local");this.setVar("s",3,"global");this.setFuncAction('op','k+=1, s+=k → 1+2','🌍 s=3');this.setExplain('⚙️ 📦 안에서 🌍 s = <b>3</b>')},
-  function(){this.setLine(8);this.setFuncAction('loop','while k<n → 2<3?','참!');this.setExplain('🔄 반복!')},
-  function(){this.setLine(7);this.setVar("k",3,"local");this.setVar("s",6,"global");this.setFuncAction('op','k+=1, s+=k → 3+3','🌍 s=6');this.setExplain('⚙️ 📦 안에서 🌍 s = <b>6</b>')},
-  function(){this.setLine(8);this.setFuncAction('loop','while k<n → 3<3?','거짓!');this.setExplain('🔄 3<3? <b>거짓!</b> 반복 끝!')},
-  function(){this.setLine(11);this.clearFuncAction();this.out("6\n");this.setExplain('↩️ 호출한 곳으로 돌아옴! 📺 <b>print(s)</b> → 🌍 s = <b>6</b>! 함수가 밖의 변수를 바꿨어요! 🎉')}
+  function(){this.setLine(5);this.setVar("n",3,"param");this.setVar("k",0,"local");this.setFuncAction('call','f(3) → n=3, k=0','전달 완료');this.setExplain('🎁 📦 함수 안: 매개변수 <b>n=3</b>, 지역변수 <b>k=0</b> 준비!')},
+  function(){this.setLine(6);this.setFuncAction('loop','while k<n → 0<3?','참!');this.setExplain('⏳ <b>while k&lt;n</b> → 0&lt;3? <b>참!</b> 반복 시작!')},
+  function(){this.setLine(7);this.setVar("k",1,"local");this.setFuncAction('op','k = k+1 → 0+1','k=1');this.setExplain('⚙️ <b>k = k+1</b> → 0+1 = <b>k=1</b>!')},
+  function(){this.setLine(8);this.setVar("s",1,"global");this.setFuncAction('op','s = s+k → 0+1','🌍 s=1');this.setExplain('⚙️ <b>s = s+k</b> → 0+1 = <b>🌍 s=1</b>! 전역변수 s가 바뀌었어요!')},
+  function(){this.setLine(6);this.setFuncAction('loop','while k<n → 1<3?','참!');this.setExplain('🔄 <b>while k&lt;n</b> → 1&lt;3? <b>참!</b> 계속 반복!')},
+  function(){this.setLine(7);this.setVar("k",2,"local");this.setFuncAction('op','k = k+1 → 1+1','k=2');this.setExplain('⚙️ <b>k = k+1</b> → 1+1 = <b>k=2</b>!')},
+  function(){this.setLine(8);this.setVar("s",3,"global");this.setFuncAction('op','s = s+k → 1+2','🌍 s=3');this.setExplain('⚙️ <b>s = s+k</b> → 1+2 = <b>🌍 s=3</b>!')},
+  function(){this.setLine(6);this.setFuncAction('loop','while k<n → 2<3?','참!');this.setExplain('🔄 <b>while k&lt;n</b> → 2&lt;3? <b>참!</b> 한 번 더!')},
+  function(){this.setLine(7);this.setVar("k",3,"local");this.setFuncAction('op','k = k+1 → 2+1','k=3');this.setExplain('⚙️ <b>k = k+1</b> → 2+1 = <b>k=3</b>!')},
+  function(){this.setLine(8);this.setVar("s",6,"global");this.setFuncAction('op','s = s+k → 3+3','🌍 s=6');this.setExplain('⚙️ <b>s = s+k</b> → 3+3 = <b>🌍 s=6</b>!')},
+  function(){this.setLine(6);this.setFuncAction('loop','while k<n → 3<3?','거짓!');this.setExplain('🔄 <b>while k&lt;n</b> → 3&lt;3? <b>거짓!</b> 반복 종료!')},
+  function(){this.setLine(11);this.clearFuncAction();this.out("6\n");this.setExplain('↩️ 함수 완료! 호출한 곳으로 돌아옴! 📺 <b>print(s)</b> → 🌍 s = <b>6</b>! (1+2+3=6) 🎉')}
 ];
 
 V["f58"].steps=[
@@ -4289,10 +4292,11 @@ V["f66-2"].steps=[
 
 V["f67"].steps=[
   function(){this.setLine(1);this.setExplain("📦 <b>import random</b> — 무작위 기능이 들어있는 <b>random</b> 모듈(도구 상자)을 가져와요!")},
-  function(){this.setLine(2);this.setVar("names",["민수","지영","수아"],"list");this.setExplain('📋 이름 리스트 <b>["민수", "지영", "수아"]</b>를 만들었어요!')},
-  function(){this.setLine(3);this.out('["민수", "지영", "수아"]\n');this.setExplain('📺 <b>print(names)</b> — 섞기 전 원래 순서를 출력해요!')},
-  function(){this.setLine(4);this.setVar("names",["수아","민수","지영"],"list");this.setExplain('🎲 <b>random.shuffle(names)</b> — 리스트의 순서를 무작위로 섞었어요! (결과는 매번 달라요)')},
-  function(){this.setLine(5);this.out('["수아", "민수", "지영"]\n');this.setExplain('📺 <b>print(names)</b> — 섞은 후 순서를 출력! 순서가 바뀌었죠? 🎉')}
+  function(){this.setLine(2);this.setVar("names",["민수","지영","수아"],"list");this.setExplain('⌨️ <b>input().split()</b> — 키보드로 입력한 이름들을 공백 기준으로 나눠 <b>names</b> 리스트에 담았어요! → <b>["민수", "지영", "수아"]</b>')},
+  function(){this.setLine(3);this.setVar("names",["수아","민수","지영"],"list");this.setExplain('🎲 <b>random.shuffle(names)</b> — 리스트의 순서를 무작위로 섞었어요! (결과는 매번 달라요)')},
+  function(){this.setLine(4);this.out('["수아", "민수", "지영"]\n');this.setExplain('📺 <b>print(names)</b> — 첫 번째 셔플 결과를 출력해요! 순서가 바뀌었죠? 🎉')},
+  function(){this.setLine(5);this.setVar("names",["지영","수아","민수"],"list");this.setExplain('🎲 <b>random.shuffle(names)</b> — 한 번 더 무작위로 섞었어요! 또 순서가 달라졌어요!')},
+  function(){this.setLine(6);this.out('["지영", "수아", "민수"]\n');this.setExplain('📺 <b>print(names)</b> — 두 번째 셔플 결과도 출력! 셔플할 때마다 매번 다른 결과가 나와요 🎉')}
 ];
 
 V["f70"].steps=[
@@ -4443,7 +4447,8 @@ V["f99-2"].steps=[
 ];
 
 V["f99-3"].steps=[
-  function(){this.setLine(1);this.setExplain("🔍 조건 <b>False</b>을(를) 확인해요! 참(True)이면 아래 코드를 실행하고, 거짓(False)이면 건너뛰어요.")}
+  function(){this.setLine(1);this.setExplain("🔍 조건 <b>False</b>을(를) 확인해요! 참(True)이면 아래 코드를 실행하고, 거짓(False)이면 건너뛰어요.")},
+  function(){this.setLine(2);this.setExplain('⏭️ 조건이 <b>False(거짓)</b>이므로 <b>print("World")</b>는 실행되지 않고 건너뛰어요! 프로그램 종료. 🔚')}
 ];
 
 V["f100"].steps=[
@@ -4901,7 +4906,8 @@ V["f131-2"].steps=[
 ];
 
 V["f132"].steps=[
-  function(){this.setLine(1);this.setExplain("🎯 함수 <b>f</b>를 만들어요! 지금은 정의만 하고, 호출하면 실행됩니다.")}
+  function(){this.setLine(1);this.setExplain("🎯 함수 <b>f</b>를 만들어요! 지금은 정의만 하고, 호출하면 실행됩니다.")},
+  function(){this.setLine(2);this.setExplain('📋 <b>print("Hello")</b>는 함수 <b>f</b>의 내용(몸통)이에요! <b>f()</b>를 호출하면 이 줄이 실행돼요. 지금은 정의만 한 상태! 🔚')}
 ];
 
 V["f134"].steps=[
@@ -5166,7 +5172,10 @@ V["f166"].steps=[
   function(){this.setLine(24);this.writeFile('26 (17+9)');this.setExplain('✏️ <b>17 + 9 = 26</b> → c.txt에 기록!')},
   function(){this.setLine(24);this.writeFile('106 (73+33)');this.setExplain('✏️ <b>73 + 33 = 106</b> → c.txt에 기록!')},
   function(){this.setLine(24);this.writeFile('149 (98+51)');this.setExplain('✏️ <b>98 + 51 = 149</b> → c.txt에 기록!')},
-  function(){this.setLine(27);this.closeFile();this.setExplain('🔒 모든 파일 닫기! a.txt + b.txt → c.txt 합산 완성! 🎉')}
+  function(){this.setLine(27);this.closeFile();this.setExplain('🔒 <b>f1.close()</b> — in1.txt(첫 번째 입력 파일)를 닫아요!')},
+  function(){this.setLine(28);this.setExplain('🔒 <b>f2.close()</b> — in2.txt(두 번째 입력 파일)를 닫아요!')},
+  function(){this.setLine(29);this.setExplain('🔒 <b>f3.close()</b> — sum.txt(합산 결과 파일)를 닫아요!')},
+  function(){this.setLine(30);this.setExplain('🔒 <b>f4.close()</b> — minmax.txt(최솟값/최댓값 파일)를 닫아요! 모든 파일이 안전하게 닫혔어요. 🎉')}
 ];
 
 V["f168-1"].steps=[
@@ -5425,7 +5434,7 @@ V["f208"].steps=[
   function(){this.setLine(16);this.setVar("x",9);this.out("F-0009\n");this.setExplain("📺 format()으로 값을 넣어서 화면에 출력해요! <b>print(\"F-{:04d}\".format(x)) # F-xxxx 형태로 출력)</b>")},
   function(){this.setLine(15);this.setExplain("🔄 <b>range(1,count+1)</b>가 숫자 목록을 만들어요! 하나씩 꺼내서 통 <b>x</b>에 넣으며 반복해요.")},
   function(){this.setLine(16);this.setVar("x",10);this.out("F-0010\n");this.setExplain("📺 format()으로 값을 넣어서 화면에 출력해요! <b>print(\"F-{:04d}\".format(x)) # F-xxxx 형태로 출력)</b>")},
-  function(){this.setLine(15);this.setExplain("🔄 <b>range(1,count+1)</b>가 숫자 목록을 만들어요! 하나씩 꺼내서 통 <b>x</b>에 넣으며 반복해요.")}
+  function(){this.setLine(15);this.setExplain("✅ <b>for x in range(1,count+1)</b> 반복 완료! F-0001부터 F-0010까지 총 <b>10개</b> 출력 완료! 🎉")}
 ];
 
 V["f212"].steps=[
@@ -5882,7 +5891,9 @@ V["f232"].steps=[
   function(){this.setLine(7);this.setVar("T",8);this.setExplain("🔍 조건 <b>T==S or T==O:  # T와 S, O가 같은 숫자인 경우 다음 반복으로</b>을(를) 확인해요! 참(True)이면 아래 코드를 실행하고, 거짓(False)이면 건너뛰어요.")},
   function(){this.setLine(9);this.setExplain("🔍 조건 <b>(S*100+O*10+T)-(S*10+O)==T*10+T:     # 식이 ...</b>을(를) 확인해요! 참(True)이면 아래 코드를 실행하고, 거짓(False)이면 건너뛰어요.")},
   function(){this.setLine(6);this.setExplain("🔄 <b>range(0,10)</b>가 숫자 목록을 만들어요! 하나씩 꺼내서 통 <b>T</b>에 넣으며 반복해요.")},
-  function(){this.setLine(7);this.setVar("T",9);this.out("109-10=99\n");this.setExplain("🔍 조건 <b>T==S or T==O:  # T와 S, O가 같은 숫자인 경우 다음 반복으로</b>을(를) 확인해요! 참(True)이면 아래 코드를 실행하고, 거짓(False)이면 건너뛰어요.")}
+  function(){this.setLine(7);this.setVar("T",9);this.setExplain("🔍 조건 <b>T==S or T==O</b> → T=9, S=1, O=0 → <b>거짓!</b> 다음 조건으로 넘어가요.")},
+  function(){this.setLine(9);this.setExplain("🔍 조건 <b>(S*100+O*10+T)-(S*10+O)==T*10+T</b> → 109-10=99, 9×11=99 ✓ <b>참!</b> 출력해요!")},
+  function(){this.setLine(10);this.out("109-10=99\n");this.setExplain("🖨️ <b>print()</b> → <b>109-10=99</b> 출력! S=1, O=0, T=9일 때 식이 성립해요. 🎉")}
 ];
 
 V["f235"].steps=[
@@ -6104,7 +6115,8 @@ V["f239"].steps=[
   function(){this.setLine(11);this.setExplain("🔄 <b>range(col-1, col+2)</b>가 숫자 목록을 만들어요! 하나씩 꺼내서 통 <b>j</b>에 넣으며 반복해요.")},
   function(){this.setLine(12);this.setVar("j",3);this.setExplain("➕ 통 <b>j</b>의 값에 더해서 다시 넣었어요! 결과: <b>3</b>")},
   function(){this.setLine(11);this.setVar("res",3);this.setExplain("🔄 <b>range(col-1, col+2)</b>는 숫자들의 목록을 만들어요! 통 <b>j</b>에 <b>3</b>을 넣고 반복 시작!")},
-  function(){this.setLine(12);this.setVar("j",4);this.out("5\n");this.setExplain("➕ 통 <b>j</b>의 값에 더해서 다시 넣었어요! 결과: <b>4</b>")}
+  function(){this.setLine(12);this.setVar("j",4);this.setExplain("➕ 통 <b>j</b>의 값에 더해서 다시 넣었어요! 결과: <b>4</b>")},
+  function(){this.setLine(24);this.out("5\n");this.setExplain("📺 <b>print(maxval)</b> → 최대 가치 <b>5</b> 출력! 3×3 격자 탐색 완료! 🎉")}
 ];
 
 V["f244"].steps=[
