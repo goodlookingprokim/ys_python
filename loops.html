@@ -1155,14 +1155,14 @@ V.real3.steps=[
   function(){this.setLine(5);renderCmp('real3-cmp','guess',3,'==',5,false);this.setExplain('🔍 guess(=3) == secret(=5)? → <b>아니에요!</b> 3은 5가 아니죠.')},
   function(){this.setLine(7);renderCmp('real3-cmp','guess',3,'<',5,true);this.setExplain('🔍 guess(=3) < secret(=5)? → <b>참!</b> 3은 5보다 작아요.')},
   function(){this.setLine(8);this.out('더 높은 수를 입력하세요.\n');this.setExplain('💡 <b>"더 높은 수를 입력하세요."</b> 힌트를 줘요!')},
-  function(){this.setLine(10);this.setVar('attempts',1);this.setExplain('➕ attempts += 1 → 시도 횟수가 <b>1</b>이 되었어요.')},
+  function(){this.setLine(11);this.setVar('attempts',1);this.setExplain('➕ <b>attempts += 1</b> → 라인 11, 시도 횟수가 <b>1</b>이 되었어요.')},
   // 시도 2: 8 (너무 높음)
   function(){this.setLine(3);renderCmp('real3-cmp','attempts',1,'<',3,true);this.setExplain('🔍 시도 1회 < 3? → <b>참!</b> 아직 2번 더 시도할 수 있어요!')},
   function(){this.setLine(4);this.setVar('guess',8);this.setExplain('🎲 두 번째 추측! <b>8</b>을 입력했어요.')},
   function(){this.setLine(5);renderCmp('real3-cmp','guess',8,'==',5,false);this.setExplain('🔍 guess(=8) == secret(=5)? → <b>아니에요!</b>')},
   function(){this.setLine(7);renderCmp('real3-cmp','guess',8,'<',5,false);this.setExplain('🔍 guess(=8) < secret(=5)? → <b>아니에요!</b> 8은 5보다 커요.')},
-  function(){this.setLine(9);this.out('더 낮은 수를 입력하세요.\n');this.setExplain('💡 <b>"더 낮은 수를 입력하세요."</b> 힌트를 줘요!')},
-  function(){this.setLine(10);this.setVar('attempts',2);this.setExplain('➕ attempts += 1 → 시도 횟수가 <b>2</b>가 되었어요.')},
+  function(){this.setLine(10);this.out('더 낮은 수를 입력하세요.\n');this.setExplain('💡 <b>print("더 낮은 수를 입력하세요.")</b> — 라인 10, 힌트를 출력해요!')},
+  function(){this.setLine(11);this.setVar('attempts',2);this.setExplain('➕ <b>attempts += 1</b> → 라인 11, 시도 횟수가 <b>2</b>가 되었어요.')},
   // 시도 3: 5 (정답!)
   function(){this.setLine(3);renderCmp('real3-cmp','attempts',2,'<',3,true);this.setExplain('🔍 시도 2회 < 3? → <b>참!</b> 마지막 기회!')},
   function(){this.setLine(4);this.setVar('guess',5);this.setExplain('🎲 세 번째 추측! 힌트를 참고해서 <b>5</b>를 입력했어요!')},
